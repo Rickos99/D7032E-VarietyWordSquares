@@ -1,0 +1,6 @@
+5x5
+DW R TW R DW
+R DL R DL R
+TL R TW R TL
+R DL R DL R
+DW R TW R DW
