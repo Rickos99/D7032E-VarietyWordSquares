@@ -8,6 +8,8 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Game.UI.Console.Menus;
+using System.Threading;
+using Game.Core.IO;
 
 namespace Game
 {
@@ -25,6 +27,8 @@ namespace Game
             //AddUpdateAppSettings("Player.Bots", "0");
 
             //new Game(args);
+
+            ReadLine(5);
 
             var HCMenu = GetHostClientMenu();
             HCMenu.Show();
@@ -58,6 +62,20 @@ namespace Game
                 var msg = Host.ReadMessageFromClient(client);
                 Console.WriteLine($"Recieved: {msg.Content}");
                 Console.Write("Answer: ");
+            }
+        }
+
+        static void ReadLine(int secondsTimeout)
+        {
+            try
+            {
+                Console.WriteLine($"Please enter your name within the next {secondsTimeout} seconds.");
+                string name = TimedConsoleReader.ReadLine(secondsTimeout*1000);
+                Console.WriteLine("Hello, {0}!", name);
+            }
+            catch (TimeoutException)
+            {
+                Console.WriteLine("Sorry, you waited too long.");
             }
         }
 

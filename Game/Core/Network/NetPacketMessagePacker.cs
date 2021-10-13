@@ -25,6 +25,10 @@ namespace Game.Core.Network
             {
                 return DeserializePayload<OpenQuestion>(packet.Payload);
             }
+            else if(type == typeof(TimedOpenQuestion))
+            {
+                return DeserializePayload<TimedOpenQuestion>(packet.Payload);
+            }
             else if (type == typeof(InformationMessage))
             {
                 return DeserializePayload<InformationMessage>(packet.Payload);

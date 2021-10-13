@@ -14,6 +14,7 @@ namespace Game
 {
     class GameClient
     {
+        private static IInputOutput _gameConsole;
         /*
         * FLOW:
         * 1. Ask for connection settings and connect to game
@@ -22,6 +23,7 @@ namespace Game
         */
         public GameClient()
         {
+            _gameConsole = new GameConsole();
             var endpoint = AskForHostAddress();
             var client = new Client(endpoint);
             StartClient(client);
@@ -35,12 +37,12 @@ namespace Game
                 var message = client.ReadMessage();
                 if (message is IQuestion question)
                 {
-                    var answer = GameConsole.AskQuestion(question);
+                    var answer = _gameConsole.AskQuestion(question);
                     client.SendMessage(new InformationMessage(answer));
                 }
                 else
                 {
-                    GameConsole.DisplayMessage(message);
+                    _gameConsole.DisplayMessage(message);
                 }
                 // TODO Make it possible to change exit loop, maybe with a GameHasEndedMessage?
             }
@@ -53,7 +55,7 @@ namespace Game
             IPEndPoint endPoint;
             do
             {
-                input = GameConsole.AskQuestion(AddressQuestion);
+                input = _gameConsole.AskQuestion(AddressQuestion);
                 if (string.IsNullOrEmpty(input))
                 {
                     return new IPEndPoint(IPAddress.Loopback, 5500);

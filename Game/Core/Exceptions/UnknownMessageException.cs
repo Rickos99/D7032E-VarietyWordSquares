@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 
 namespace Game.Core.Exceptions
 {
-    class UnknownMessageException : Exception
+    public class UnknownMessageException : Exception
     {
         public UnknownMessageException()
         {

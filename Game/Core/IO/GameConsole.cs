@@ -4,22 +4,29 @@ using System.Linq;
 
 namespace Game.Core.IO
 {
-    class GameConsole //: IInput, IOutput
+    public class GameConsole : IInputOutput
     {
-        public static void DisplayMessage(IMessage message)
+        public void DisplayMessage(IMessage message)
         {
             Console.WriteLine(message.GetMessageString());
         }
 
-        public static string AskQuestion(IQuestion question)
+        public string AskQuestion(IQuestion question)
         {
             DisplayMessage(question);
-            if (question.HasChoices == false) return GetInput();
+            if (question is ITimedQuestion q)
+            {
+                return TimedConsoleReader.ReadLine(q.SecondsTimeout * 1000);
+            }
+            if (question.HasChoices == false)
+            {
+                return GetInput();
+            }
 
             return GetInput((input) => question.Choices.Any((c) => InputIsInChoices(c, input)));
         }
 
-        public static string GetInput(Predicate<string> validator)
+        public string GetInput(Predicate<string> validator)
         {
             string input;
             do
@@ -30,7 +37,7 @@ namespace Game.Core.IO
             return input;
         }
 
-        public static string GetInput()
+        public string GetInput()
         {
             return GetInput(s => true);
         }

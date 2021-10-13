@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 
 namespace Game.Core.Exceptions
 {
-    class SquareAlreadyOccupiedException : Exception
+    public class SquareAlreadyOccupiedException : Exception
     {
         public SquareAlreadyOccupiedException()
         {

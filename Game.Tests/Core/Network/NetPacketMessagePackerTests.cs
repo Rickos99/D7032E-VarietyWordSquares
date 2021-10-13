@@ -1,12 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Game.Core.Network;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FluentAssertions;
 using Game.Core.Communication;
-using FluentAssertions;
+using Game.Core.Exceptions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace Game.Core.Network.Tests
 {
@@ -21,6 +17,7 @@ namespace Game.Core.Network.Tests
                 {
                     new object[]{new InformationMessage("The quick brown fox jumps over the lazy dog") },
                     new object[]{new OpenQuestion("Did the quick brown fox jump over the lazy dog?") },
+                    new object[]{new TimedOpenQuestion("Did the quick brown fox jump over the lazy dog?", 5) },
                     new object[]{new ClosedQuestion("Is the fox brown?", new List<Choice>() {
                             new Choice("y", "Yes"),
                             new Choice("n", "No"),
@@ -48,21 +45,30 @@ namespace Game.Core.Network.Tests
             var actual = NetPacketMessagePacker.Pack(message);
             actual.Should().BeEquivalentTo(netPacket);
         }
+
+        [TestMethod]
+        public void UnpackTest_UnsupportedMessage()
+        {
+            var message = new UnSupportedMessage("The fox is brown");
+            var netpacket = NetPacketMessagePacker.Pack(message);
+
+            Assert.ThrowsException<UnknownMessageException>(() => NetPacketMessagePacker.Unpack(netpacket));
+        }
     }
-    
-    // TODO Finish test class
+
+
     class UnSupportedMessage : IMessage
     {
-        public string Content => throw new NotImplementedException();
+        public string Content { get; set; }
 
-        public UnSupportedMessage()
+        public UnSupportedMessage(string message)
         {
-
+            Content = message;
         }
 
         public string GetMessageString()
         {
-            throw new NotImplementedException();
+            return Content;
         }
     }
 }
