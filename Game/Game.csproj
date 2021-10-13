@@ -1,25 +1,18 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>net5.0</TargetFramework>
-    <ApplicationIcon />
-    <Win32Resource />
-  </PropertyGroup>
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net5.0</TargetFramework>
+        <ApplicationIcon />
+        <Win32Resource />
+    </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="Resources\**" />
-    <EmbeddedResource Remove="Resources\**" />
-    <None Remove="Resources\**" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Core\Resources\" />
-    <Folder Include="Util\Extensions\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
-  </ItemGroup>
+    <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+        <Exec Command="xcopy $(SolutionDir)Resources\ $(OutDir)Resources\ /e /y /i /r" ContinueOnError="false" />
+    </Target>
 
 </Project>
