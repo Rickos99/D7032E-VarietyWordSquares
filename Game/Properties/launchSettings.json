@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Game": {
+      "commandName": "Project"
+    },
+    "GameClient": {
+      "commandName": "Project",
+      "commandLineArgs": "--client 5500",
+      "remoteDebugEnabled": false
+    }
+  }
+}
