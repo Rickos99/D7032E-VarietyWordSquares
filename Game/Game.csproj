@@ -11,8 +11,15 @@
         <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
     </ItemGroup>
 
+    <ItemGroup>
+        <Resources Include="$(SolutionDir)Resources\**\*.*" />
+    </ItemGroup>
     <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-        <Exec Command="xcopy $(SolutionDir)Resources\ $(OutDir)Resources\ /e /y /i /r" ContinueOnError="false" />
+        <Copy
+            SourceFiles="@(Resources)"
+            DestinationFolder="$(OutDir)Resources\%(RecursiveDir)"
+            OverwriteReadOnlyFiles="true"
+            SkipUnchangedFiles="true" />
     </Target>
 
 </Project>
