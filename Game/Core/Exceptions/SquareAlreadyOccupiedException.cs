@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.Serialization;
 
 namespace Game.Core.Exceptions
 {
@@ -13,13 +12,8 @@ namespace Game.Core.Exceptions
         {
         }
 
-        public SquareAlreadyOccupiedException(string message, Exception innerException) 
+        public SquareAlreadyOccupiedException(string message, Exception innerException)
             : base(message, innerException)
-        {
-        }
-
-        protected SquareAlreadyOccupiedException(SerializationInfo info, StreamingContext context) 
-            : base(info, context)
         {
         }
     }

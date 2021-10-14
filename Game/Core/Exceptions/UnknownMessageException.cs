@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.Serialization;
 
 namespace Game.Core.Exceptions
 {
@@ -16,11 +15,6 @@ namespace Game.Core.Exceptions
 
         public UnknownMessageException(string message, Exception innerException)
             : base(message, innerException)
-        {
-        }
-
-        protected UnknownMessageException(SerializationInfo info, StreamingContext context)
-            : base(info, context)
         {
         }
     }
