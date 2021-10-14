@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 
 namespace Game.Core.Board
 {
@@ -45,9 +44,9 @@ namespace Game.Core.Board
             {
                 throw new ArgumentException("Argument cannot be null or whitespace", nameof(location));
             }
-            if (location.Any(c => !char.IsLetterOrDigit(c)))
+            if (!LocationStringIsValid(location))
             {
-                throw new FormatException("Location string can only contain letters A-Z and digits 0-9");
+                throw new FormatException("Location string can only contain letters A-Z and digits 0-9. Allowed format is '[A-Z]+[0-9]+'");
             }
 
             location = location.ToUpper();
@@ -63,6 +62,32 @@ namespace Game.Core.Board
             int col = int.Parse(colStr);
 
             return new SquareLocation(row, col);
+        }
+
+        /// <summary>
+        /// Check whether the provided location string is valid. Allowed format is "[A-Z]+[0-9]+".
+        /// </summary>
+        /// <param name="location">Location string to check</param>
+        /// <returns><c>true</c> if the location string is valid; Otherwise <c>false</c>.</returns>
+        public static bool LocationStringIsValid(string location)
+        {
+            if (!char.IsDigit(location[^1])) return false;
+
+            bool isLookingForLetter = true;
+            for (int i = 0; i < location.Length; i++)
+            {
+                char character = location[i];
+                if (isLookingForLetter)
+                {
+                    if (!char.IsLetterOrDigit(character)) return false;
+                    if (char.IsDigit(character)) isLookingForLetter = false;
+                }
+                else
+                {
+                    if (!char.IsDigit(character)) return false;
+                }
+            }
+            return true;
         }
 
         private static string IntegerToAlphabetic(int integer)
