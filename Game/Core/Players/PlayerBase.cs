@@ -8,8 +8,14 @@ namespace Game.Core.Players
     // BotPlayer, don't print anything, only get input. Need support for game ended message. ctor() or ctor(Obj[] answers)
     public abstract class PlayerBase
     {
+        /// <summary>
+        /// Player identifier
+        /// </summary>
         public string ID { get; private set; }
 
+        /// <summary>
+        /// Initialize a new instance of the <see cref="PlayerBase"/> class
+        /// </summary>
         public PlayerBase()
         {    
             ID = Guid.NewGuid().ToString();
@@ -27,8 +33,17 @@ namespace Game.Core.Players
             return ID.GetHashCode();
         }
 
+        /// <summary>
+        /// Ask player a question and get the response
+        /// </summary>
+        /// <param name="question">Question to ask</param>
+        /// <returns>Players response to question</returns>
         public abstract string AskQuestion(IQuestion question);
 
+        /// <summary>
+        /// Send a message to player
+        /// </summary>
+        /// <param name="message">Message to send</param>
         public abstract void SendMessage(IMessage message);
     }
 }
