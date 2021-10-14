@@ -59,15 +59,10 @@ namespace Game.Core.Players
 
         public override string AskQuestion(IQuestion question)
         {
-            if (!BotCanAnswerQuestion(question)) throw new UnsupportedQuestionException(question.GetType());
-            // TODO Implement method
-            //  - Support PickALetterQuestion
-            //      1. Get all avaliable letters for current configuration
-            //      2. Pick random letter and return it
-            //  - Support PickLetterLocationQuestion
-            //      1. Get all empty squares on board
-            //      2. Pick one of those squares and return its location.
-            throw new NotImplementedException();
+            if (question is PickALetterQuestion) return AnswerPickLetter().ToString();
+            if (question is PickLetterLocationQuestion) return AnswerPickLetterLocation();
+
+            throw new UnsupportedQuestionException(question.GetType());
         }
 
         public override void SendMessage(IMessage message) { }
@@ -80,6 +75,20 @@ namespace Game.Core.Players
         public static bool BotCanAnswerQuestion(IQuestion question)
         {
             return SupportedQuestions.Contains(question.GetType());
+        }
+
+        private char AnswerPickLetter()
+        {
+            var avaliableLetters = _board.AvaliableLetters;
+            var letterIndex = _rng.Next(avaliableLetters.Length - 1);
+            return avaliableLetters[letterIndex].Letter;
+        }
+
+        private string AnswerPickLetterLocation()
+        {
+            var emptyLocations = _board.GetAllEmptyLocations();
+            var locationIndex = _rng.Next(emptyLocations.Length - 1);
+            return emptyLocations[locationIndex];
         }
     }
 }
