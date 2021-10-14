@@ -9,8 +9,12 @@ namespace Game.Core.Board
     public abstract class BoardBase
     {
         public Square[,] Squares { get; private set; }
+        public Tile[] AvaliableLetters { get; private set; }
         public virtual int NumberOfRows { get => Squares.GetLength(0); }
         public virtual int NumberOfColumns { get => Squares.GetLength(1); }
+
+        //public Square this[string location] { get => GetContentAt(location); }
+        //public Square this[int row, int column] { get => GetContentAt(row, column); }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BoardBase"/> with
@@ -67,5 +71,12 @@ namespace Game.Core.Board
         {
             Squares[row, column].Tile = tile;
         }
+
+        public abstract string[] GetAllWords();
+
+        // Maybe this should not be located in abstract class, but rather in derived classes
+        public abstract int CalculateScore();
+
+        public abstract string[] GetAllEmptyLocations();
     }
 }
