@@ -9,7 +9,7 @@ namespace Game.Core.Players
     class BotPlayer : PlayerBase
     {
         private readonly Random _rng;
-        private readonly BoardBase _board;
+        private readonly IBoard _board;
 
         public static Type[] SupportedQuestions
         {
@@ -24,7 +24,7 @@ namespace Game.Core.Players
         /// </summary>
         /// <param name="board">Board in which the bot will have as a decision base </param>
         /// <exception cref="ArgumentNullException"></exception>
-        public BotPlayer(BoardBase board)
+        public BotPlayer(IBoard board)
         {
             if (board is null)
             {
@@ -46,7 +46,7 @@ namespace Game.Core.Players
         /// <param name="board">Board in which the bot will have as a decision base </param>
         /// <param name="rngSeed">Seed to use in decisions</param>
         /// <exception cref="ArgumentNullException"></exception>
-        public BotPlayer(BoardBase board, int rngSeed)
+        public BotPlayer(IBoard board, int rngSeed)
         {
             if (board is null)
             {
