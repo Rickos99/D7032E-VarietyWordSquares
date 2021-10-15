@@ -15,11 +15,7 @@
         <Resources Include="$(SolutionDir)Resources\**\*.*" />
     </ItemGroup>
     <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-        <Copy
-            SourceFiles="@(Resources)"
-            DestinationFolder="$(OutDir)Resources\%(RecursiveDir)"
-            OverwriteReadOnlyFiles="true"
-            SkipUnchangedFiles="true" />
+        <Copy SourceFiles="@(Resources)" DestinationFolder="$(OutDir)Resources\%(RecursiveDir)" OverwriteReadOnlyFiles="true" SkipUnchangedFiles="true" />
     </Target>
 
 </Project>
