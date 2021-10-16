@@ -55,5 +55,11 @@ namespace Game.Core.Board
         /// </summary>
         /// <returns>Location strings of empty locations on board</returns>
         string[] GetAllEmptyLocations();
+
+        /// <summary>
+        /// Get current board as a pretty string
+        /// </summary>
+        /// <returns>Current board as a pretty string</returns>
+        string GetBoardAsString();
     }
 }
