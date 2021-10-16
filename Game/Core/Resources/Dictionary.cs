@@ -1,6 +1,7 @@
 ﻿using Game.Util.DataStructures.StringSearch;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace Game.Core.Resources
 {
@@ -11,6 +12,11 @@ namespace Game.Core.Resources
         /// </summary>
         public string Name { get; private set; }
 
+        /// <summary>
+        /// Number of words in dictionary
+        /// </summary>
+        public int WordCount { get; private set; }
+
         private Trie _words = null;
 
         private static Dictionary instance = null;
@@ -19,6 +25,8 @@ namespace Game.Core.Resources
         private Dictionary()
         {
             _words = new Trie();
+            WordCount = 0;
+            Name = string.Empty;
         }
 
         /// <summary>
@@ -47,8 +55,9 @@ namespace Game.Core.Resources
         public void SetDictionary(string name, List<string> words)
         {
             Name = name;
+            WordCount = words.Count;
             _words = new Trie();
-            _words.InsertRange(words);
+            _words.InsertRange(words.Select((w) => w.ToLower()).ToList());
         }
 
         /// <summary>
@@ -58,7 +67,7 @@ namespace Game.Core.Resources
         /// <returns><c>true</c> if word exist in dictionary; Otherwise <c>false</c></returns>
         public bool WordExist(string word)
         {
-            return _words.Search(word);
+            return _words.Search(word.ToLower());
         }
 
         /// <summary>
@@ -79,9 +88,11 @@ namespace Game.Core.Resources
 
             foreach (var line in lines)
             {
-                _words.Insert(line);
+                if (string.IsNullOrEmpty(line)) continue;
+                _words.Insert(line.ToLower());
             }
 
+            WordCount = lines.Count();
             Name = Path.GetFileNameWithoutExtension(filepath);
         }
     }
