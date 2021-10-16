@@ -42,13 +42,13 @@ namespace Game.Util.DataStructures.StringSearch
         }
 
         /// <summary>
-        /// Insert a range of strings
+        /// Insert a collection of strings
         /// </summary>
-        /// <param name="items">A list of string to insert</param>
-        public void InsertRange(List<string> items)
+        /// <param name="items">A collection of strings to insert</param>
+        public void InsertRange(IEnumerable<string> items)
         {
-            for (int i = 0; i < items.Count; i++)
-                Insert(items[i]);
+            foreach (string item in items)
+                Insert(item);
         }
 
         /// <summary>

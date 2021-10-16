@@ -8,33 +8,24 @@ namespace Game.Core.Resources
 {
     public class TileSchema
     {
-        public int NumberOfTiles { get => _tiles.Count; }
-
-        private List<Tile> _tiles = null;
-
-        private static TileSchema instance = null;
-        private static readonly object padlock = new object();
-
-        private TileSchema()
-        {
-        }
+        /// <summary>
+        /// Get number of tiles in <see cref="TileSchema"/>
+        /// </summary>
+        public int NumberOfTiles { get => Tiles.Count; }
 
         /// <summary>
-        /// Get instance of <see cref="Dictionary"/> class
+        /// Get a list of all tiles in <see cref="TileSchema"/>
         /// </summary>
-        public static TileSchema Instance
+        public List<Tile> Tiles { get; private set; }
+
+        /// <summary>
+        /// Initialize a new instance of the <see cref="TileSchema"/> class with
+        /// a specified list of tiles.
+        /// </summary>
+        /// <param name="tiles">tiles in which the schema will contain</param>
+        public TileSchema(List<Tile> tiles)
         {
-            get
-            {
-                lock (padlock)
-                {
-                    if (instance == null)
-                    {
-                        instance = new TileSchema();
-                    }
-                    return instance;
-                }
-            }
+            Tiles = tiles;
         }
 
         /// <summary>
@@ -44,33 +35,25 @@ namespace Game.Core.Resources
         /// <returns><c>true</c> if letter exist in tileschema; Otherwise <c>false</c></returns>
         public bool TileExist(char letter)
         {
-            return _tiles.Any((tile) => tile.Letter == char.ToLower(letter));
-        }
-
-        /// <summary>
-        /// Get a list of all tiles in tileschema
-        /// </summary>
-        /// <returns>A list of all tiles in tileschema</returns>
-        public List<Tile> GetAllTiles()
-        {
-            return _tiles;
+            letter = char.ToLower(letter);
+            return Tiles.Any((tile) => tile.Letter == letter);
         }
 
         /// <summary>
         /// Load dictionary from file and replace current dictionary
         /// </summary>
         /// <param name="filepath">Path to file</param>
-        public void LoadFromFile(string filepath)
+        public static TileSchema LoadFromFile(string filepath)
         {
             IEnumerable<string> lines;
+            List<Tile> tiles = new List<Tile>();
             try
             {
-                _tiles = new List<Tile>();
                 lines = File.ReadLines(filepath);
                 foreach (var line in lines)
                 {
                     if (string.IsNullOrEmpty(line)) continue;
-                    _tiles.Add(GetTileFromString(line));
+                    tiles.Add(GetTileFromString(line));
                 }
             }
             catch(Exception e)
@@ -83,6 +66,8 @@ namespace Game.Core.Resources
 
                 throw new FileLoadException("The specified tileschema could not be loaded.", filepath);
             }
+
+            return new TileSchema(tiles);
         }
 
         private static Tile GetTileFromString(string str)

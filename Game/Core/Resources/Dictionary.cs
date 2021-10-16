@@ -17,47 +17,22 @@ namespace Game.Core.Resources
         /// </summary>
         public int WordCount { get; private set; }
 
-        private Trie _words = null;
-
-        private static Dictionary instance = null;
-        private static readonly object padlock = new object();
-
-        private Dictionary()
-        {
-            _words = new Trie();
-            WordCount = 0;
-            Name = string.Empty;
-        }
+        private readonly Trie _words;
 
         /// <summary>
-        /// Get instance of <see cref="Dictionary"/> class
+        /// Initialize a new instance of the <see cref="Dictionary"/> class with 
+        /// a spceified list of words and a user friendly name of the dictionary
         /// </summary>
-        public static Dictionary Instance
-        {
-            get
-            {
-                lock (padlock)
-                {
-                    if (instance == null)
-                    {
-                        instance = new Dictionary();
-                    }
-                    return instance;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Replace current directory with a new range of words and a new name.
-        /// </summary>
-        /// <param name="name">Name of dictionary</param>
-        /// <param name="words">Words that the dictionary contains</param>
-        public void SetDictionary(string name, List<string> words)
+        /// <param name="name"></param>
+        /// <param name="words"></param>
+        public Dictionary(string name, IEnumerable<string> words)
         {
             Name = name;
-            WordCount = words.Count;
+            WordCount = words.Count();
             _words = new Trie();
-            _words.InsertRange(words.Select((w) => w.ToLower()).ToList());
+            _words.InsertRange(words
+                .Where((w)=> !string.IsNullOrEmpty(w))
+                .Select((w) => w.ToLower()));
         }
 
         /// <summary>
@@ -71,29 +46,24 @@ namespace Game.Core.Resources
         }
 
         /// <summary>
-        /// Load dictionary from file and replace current dictionary
+        /// Load dictionary from file
         /// </summary>
         /// <param name="filepath">Path to file</param>
-        public void LoadFromFile(string filepath)
+        /// <returns>The dictionary that was found</returns>
+        /// <exception cref="FileLoadException"></exception>
+        public static Dictionary LoadFromFile(string filepath)
         {
-            IEnumerable<string> lines;
+            string name = Path.GetFileNameWithoutExtension(filepath);
+            IEnumerable<string> words;
             try
             {
-                lines = File.ReadLines(filepath);
+                words = File.ReadLines(filepath);
             }
             catch
             {
                 throw new FileLoadException("The specified dictionary could not be loaded", filepath);
             }
-
-            foreach (var line in lines)
-            {
-                if (string.IsNullOrEmpty(line)) continue;
-                _words.Insert(line.ToLower());
-            }
-
-            WordCount = lines.Count();
-            Name = Path.GetFileNameWithoutExtension(filepath);
+            return new Dictionary(name, words);
         }
     }
 }
