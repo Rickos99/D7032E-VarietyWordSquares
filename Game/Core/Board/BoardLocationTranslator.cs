@@ -2,7 +2,7 @@
 
 namespace Game.Core.Board
 {
-    public static class SquareLocationTranslator
+    public static class BoardLocationTranslator
     {
         /// <summary>
         /// Translate numerical row and column values to a string value on form "[A-Z][0-9]" 

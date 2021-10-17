@@ -50,7 +50,7 @@ namespace Game.Core.Board.Tests
         [DynamicData(nameof(StringLocations))]
         public void TranslateToString_WhenLocationIsValid(SquareLocation sqLoc, string expected)
         {
-            var actual = SquareLocationTranslator.TranslateToString(sqLoc.Row, sqLoc.Column);
+            var actual = BoardLocationTranslator.TranslateToString(sqLoc.Row, sqLoc.Column);
 
             actual.Should().BeEquivalentTo(expected);
         }
@@ -59,7 +59,7 @@ namespace Game.Core.Board.Tests
         [DynamicData(nameof(SquareLocations))]
         public void TranslateFromString_WhenLocationIsValid(string location, SquareLocation expected)
         {
-            var actual = SquareLocationTranslator.TranslateFromString(location);
+            var actual = BoardLocationTranslator.TranslateFromString(location);
 
             actual.Should().BeEquivalentTo(expected);
         }
@@ -68,7 +68,7 @@ namespace Game.Core.Board.Tests
         [DynamicData(nameof(LocationStrings))]
         public void LocationStringIsValidTest(string location, bool expected)
         {
-            SquareLocationTranslator.LocationStringIsValid(location).Should().Be(expected);
+            BoardLocationTranslator.LocationStringIsValid(location).Should().Be(expected);
         }
     }
 }

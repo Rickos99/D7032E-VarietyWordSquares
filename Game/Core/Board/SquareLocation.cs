@@ -25,7 +25,7 @@ namespace Game.Core.Board
 
         public override string ToString()
         {
-            return SquareLocationTranslator.TranslateToString(Row, Column);
+            return BoardLocationTranslator.TranslateToString(Row, Column);
         }
     }
 }
