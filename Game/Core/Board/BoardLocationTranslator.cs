@@ -1,4 +1,5 @@
 ﻿using System;
+using Game.Util.Extensions;
 
 namespace Game.Core.Board
 {
@@ -22,7 +23,7 @@ namespace Game.Core.Board
             if (row < 0) throw new ArgumentOutOfRangeException(nameof(row));
             if (column < 0) throw new ArgumentOutOfRangeException(nameof(column));
 
-            return IntegerToAlphabetic(row) + column;
+            return row.ConvertToAlphabetic() + column;
         }
 
         /// <summary>
@@ -58,7 +59,7 @@ namespace Game.Core.Board
                 else colStr += location[i];
             }
 
-            int row = AlphabeticToInteger(rowStr);
+            if (!rowStr.TryConvertToInteger(out int row)) throw new FormatException("Row could not be converted to integer");
             int col = int.Parse(colStr);
 
             return new SquareLocation(row, col);
@@ -88,39 +89,6 @@ namespace Game.Core.Board
                 }
             }
             return true;
-        }
-
-        private static string IntegerToAlphabetic(int integer)
-        {
-            if (integer < 0) throw new ArgumentOutOfRangeException(nameof(integer));
-
-            int lettersInAlphabet = 26;
-            int quot = integer / lettersInAlphabet;
-            int rem = integer % lettersInAlphabet;
-            char letter = (char)('A' + rem);
-            if (quot == 0)
-            {
-                return letter.ToString();
-            }
-            else
-            {
-                return IntegerToAlphabetic(quot - 1) + letter;
-            }
-        }
-
-        private static int AlphabeticToInteger(string str)
-        {
-            int result = 0;
-
-            int lettersInAlphabet = 26;
-            for (int i = 0; i < str.Length; i++)
-            {
-                int indexInAlphabet = str[i] - 'A' + 1;
-                int exponent = str.Length - 1 - i;
-                result += Convert.ToInt32(Math.Pow(lettersInAlphabet, exponent) * indexInAlphabet);
-            }
-
-            return result - 1; // Convert from one-based to zero-based indexing
         }
     }
 }
