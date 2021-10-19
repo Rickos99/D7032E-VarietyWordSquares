@@ -36,11 +36,11 @@ namespace Game.Core.Resources
         }
 
         /// <summary>
-        /// Check whether a word exist in dictionary
+        /// Check whether the dictionary contains a specific word
         /// </summary>
         /// <param name="word">Word to check</param>
-        /// <returns><c>true</c> if word exist in dictionary; Otherwise <c>false</c></returns>
-        public bool WordExist(string word)
+        /// <returns><c>true</c> if dictionary contains <paramref name="word"/>; Otherwise <c>false</c></returns>
+        public bool ContainsWord(string word)
         {
             return _words.Search(word.ToLower());
         }

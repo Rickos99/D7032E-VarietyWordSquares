@@ -43,7 +43,7 @@ namespace Game.Core.Resources.Tests
         public void WordExistTest(string word, bool exists)
         {
             var dictionary = new Dictionary("Test", TestDictionary);
-            dictionary.WordExist(word).Should().Be(exists);
+            dictionary.ContainsWord(word).Should().Be(exists);
         }
 
         [TestMethod]
@@ -52,7 +52,7 @@ namespace Game.Core.Resources.Tests
             var dictionaryPath = Path.Combine(TestResourceLocator.Location, "dictionary_test.txt");
             var dictionary = Dictionary.LoadFromFile(dictionaryPath);
 
-            dictionary.WordExist("lorem").Should().BeTrue();
+            dictionary.ContainsWord("lorem").Should().BeTrue();
             dictionary.WordCount.Should().Be(5);
             dictionary.Name.Should().Be("dictionary_test");
         }
