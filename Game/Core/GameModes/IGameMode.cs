@@ -18,7 +18,7 @@ namespace Game.Core.GameModes
         /// <summary>
         /// Contains all players boards.
         /// </summary>
-        IDictionary<PlayerBase, IBoard> Boards { get; }
+        IDictionary<PlayerBase, StandardBoard> Boards { get; }
 
         /// <summary>
         /// Indicates if the game has started.
@@ -27,6 +27,6 @@ namespace Game.Core.GameModes
 
         void Start();
 
-        void UseBoard(IBoard board);
+        void UseBoard(StandardBoard board);
     }
 }
