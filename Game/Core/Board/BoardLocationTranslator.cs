@@ -27,7 +27,7 @@ namespace Game.Core.Board
         }
 
         /// <summary>
-        /// Translate a location string into a numerical <see cref="SquareLocation"/>-class.
+        /// Translate a location string into a numerical <see cref="BoardLocation"/>-class.
         /// The location string is on the form "[A-Z][0-9]", where the first part "[A-Z]" and 
         /// the second part "[0-9]" represents the row and column, respectively . The location
         /// is zero-based, i.e. row "A" corresponds to row 0.
@@ -39,7 +39,7 @@ namespace Game.Core.Board
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="FormatException"></exception>
-        public static SquareLocation TranslateFromString(string location)
+        public static BoardLocation TranslateFromString(string location)
         {
             if (string.IsNullOrWhiteSpace(location))
             {
@@ -62,7 +62,7 @@ namespace Game.Core.Board
             if (!rowStr.TryConvertToInteger(out int row)) throw new FormatException("Row could not be converted to integer");
             int col = int.Parse(colStr);
 
-            return new SquareLocation(row, col);
+            return new BoardLocation(row, col);
         }
 
         /// <summary>

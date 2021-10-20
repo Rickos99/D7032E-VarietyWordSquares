@@ -12,9 +12,9 @@ namespace Game.Core.Board.Tests
             {
                 return new[]
                 {
-                    new object[] {new SquareLocation(0, 0), "A0"},
-                    new object[] {new SquareLocation(1, 1), "B1"},
-                    new object[] {new SquareLocation(90, 457), "CM457"},
+                    new object[] {new BoardLocation(0, 0), "A0"},
+                    new object[] {new BoardLocation(1, 1), "B1"},
+                    new object[] {new BoardLocation(90, 457), "CM457"},
                 };
             }
         }
@@ -25,9 +25,9 @@ namespace Game.Core.Board.Tests
             {
                 return new[]
                 {
-                    new object[] {"A0", new SquareLocation(0, 0)},
-                    new object[] {"B1", new SquareLocation(1, 1) },
-                    new object[] { "CM457", new SquareLocation(90, 457)},
+                    new object[] {"A0", new BoardLocation(0, 0)},
+                    new object[] {"B1", new BoardLocation(1, 1) },
+                    new object[] { "CM457", new BoardLocation(90, 457)},
                 };
             }
         }
@@ -48,7 +48,7 @@ namespace Game.Core.Board.Tests
 
         [DataTestMethod]
         [DynamicData(nameof(StringLocations))]
-        public void TranslateToString_WhenLocationIsValid(SquareLocation sqLoc, string expected)
+        public void TranslateToString_WhenLocationIsValid(BoardLocation sqLoc, string expected)
         {
             var actual = BoardLocationTranslator.TranslateToString(sqLoc.Row, sqLoc.Column);
 
@@ -57,7 +57,7 @@ namespace Game.Core.Board.Tests
 
         [DataTestMethod]
         [DynamicData(nameof(SquareLocations))]
-        public void TranslateFromString_WhenLocationIsValid(string location, SquareLocation expected)
+        public void TranslateFromString_WhenLocationIsValid(string location, BoardLocation expected)
         {
             var actual = BoardLocationTranslator.TranslateFromString(location);
 
