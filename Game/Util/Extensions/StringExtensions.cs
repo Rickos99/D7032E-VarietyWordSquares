@@ -33,9 +33,10 @@ namespace Game.Util.Extensions
 
                 return true;
             }
-            catch {
+            catch
+            {
                 integer = 0;
-                return false; 
+                return false;
             }
         }
     }
