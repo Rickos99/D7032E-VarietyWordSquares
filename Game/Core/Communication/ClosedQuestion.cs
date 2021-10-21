@@ -46,6 +46,10 @@ namespace Game.Core.Communication
             {
                 sb.AppendLine($"  [{choice.Selector}] {choice.Description}");
             }
+
+            // Remove new line after last choice
+            sb.Remove(sb.Length - 1, 1); 
+
             return sb.ToString();
         }
     }
