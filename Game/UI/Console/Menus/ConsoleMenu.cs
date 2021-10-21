@@ -5,12 +5,13 @@ using System.Text;
 
 namespace Game.UI.Console.Menus
 {
-    class ConsoleMenu : IControl
+    public class ConsoleMenu : IControl
     {
         /// <summary>
         /// String to be used before and after the menu has been printed.
         /// </summary>
         public string Seperator { get; set; }
+            = "****************************************************************";
 
         /// <summary>
         /// Menu header
@@ -37,7 +38,6 @@ namespace Game.UI.Console.Menus
         {
             Header = header;
             MenuChoices = menuChoices;
-            Seperator = "****************************************************************";
         }
 
         /// <summary>
