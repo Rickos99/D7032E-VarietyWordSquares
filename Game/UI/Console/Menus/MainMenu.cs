@@ -1,35 +1,42 @@
-﻿using Game.Core.Communication;
+﻿using System;
 using System.Collections.Generic;
 
 namespace Game.UI.Console.Menus
 {
-    class MainMenu //: ConsoleMenu
+    class MainMenu
     {
-        //public override void Initialize()
-        //{
-        //    Header = "Menu:";
-        //    MenuChoices = new List<MenuChoice>()
-        //    {
-        //        new MenuChoice("1", "Singleplayer"),
-        //        new MenuChoice("2", "Multiplayer"),
-        //        new MenuChoice("3", "Settings"),
-        //        new MenuChoice("!", "Exit application"),
-        //    };
-        //}
+        public static ConsoleMenu Create()
+        {
+            var header = "Menu:";
+            var menuChoices = new List<MenuChoice>()
+            {
+                new MenuChoice("1", "Play standard Wordsquares", PlayStandardWordSquares),
+                new MenuChoice("2", "Play ScrabbleSquares", PlayScrabbleSquares),
+                new MenuChoice("3", "Settings", ShowSettingsMenu),
+                new MenuChoice("!", "Exit application", ExitApplication),
+            };
 
-        //public override void Show()
-        //{
-        //    System.Console.WriteLine(Seperator);
-        //    System.Console.WriteLine("Welcome to VarietyBoggle");
-        //    System.Console.WriteLine(Seperator);
-        //    System.Console.WriteLine(" Settings:");
+            return new ConsoleMenu(header, menuChoices);
+        }
 
-        //    base.Show();
-        //}
+        private static void PlayStandardWordSquares()
+        {
+            System.Console.WriteLine("Not supported yet");
+        }
 
-        //private void Test()
-        //{
-        //    System.Console.WriteLine("Choice selected");
-        //}
+        private static void PlayScrabbleSquares()
+        {
+            System.Console.WriteLine("Not supported yet");
+        }
+
+        private static void ShowSettingsMenu()
+        {
+            SettingsMenu.Create().Show();
+        }
+
+        private static void ExitApplication()
+        {
+            Environment.Exit(0);
+        }
     }
 }
