@@ -28,11 +28,17 @@ namespace Game.Core.IO
 
         public string GetInput(Predicate<string> validator)
         {
-            string input;
-            do
+            string input = string.Empty;
+            bool inputIsInvalid = true;
+            while (inputIsInvalid)
             {
                 input = Console.ReadLine();
-            } while (!validator(input));
+                inputIsInvalid = !validator(input);
+                if (inputIsInvalid)
+                {
+                    Console.WriteLine("Invalid input!");
+                }
+            }
 
             return input;
         }
