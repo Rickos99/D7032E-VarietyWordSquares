@@ -1,6 +1,7 @@
 ﻿using Game.Core.Board;
 using Game.Core.Communication;
 using Game.Core.Exceptions;
+using Game.Core.Resources;
 using System;
 using System.Linq;
 
@@ -9,6 +10,7 @@ namespace Game.Core.Players
     class BotPlayer : PlayerBase
     {
         private readonly Random _rng;
+        private readonly TileSchema _tileSchema;
         private readonly StandardBoard _board;
 
         public static Type[] SupportedQuestions
@@ -20,33 +22,17 @@ namespace Game.Core.Players
         }
 
         /// <summary>
-        /// Initialize a new instance of the <see cref="BotPlayer"/> class.
-        /// </summary>
-        /// <param name="board">Board in which the bot will have as a decision base </param>
-        /// <exception cref="ArgumentNullException"></exception>
-        public BotPlayer(StandardBoard board)
-        {
-            if (board is null)
-            {
-                throw new ArgumentNullException(nameof(board));
-            }
-
-            _rng = new Random();
-            _board = board;
-        }
-
-        /// <summary>
         /// Initialize a new instance of the <see cref="BotPlayer"/> class with a 
-        /// determanistic behevior.
+        /// board, tileSchema, and seed used for randomization of bot actions.
         /// </summary>
         /// <remarks>
-        /// Behavior of the bot is only determanistic if the <paramref name="board"/> 
-        /// and <paramref name="rngSeed"/> is kept constant and 
+        /// Behavior of the bot is only determanistic if the method paramaters
+        /// are kept constant.
         /// </remarks>
         /// <param name="board">Board in which the bot will have as a decision base </param>
         /// <param name="rngSeed">Seed to use in decisions</param>
         /// <exception cref="ArgumentNullException"></exception>
-        public BotPlayer(StandardBoard board, int rngSeed)
+        public BotPlayer(StandardBoard board, TileSchema tileSchema, int rngSeed)
         {
             if (board is null)
             {
@@ -54,6 +40,7 @@ namespace Game.Core.Players
             }
 
             _rng = new Random(rngSeed);
+            _tileSchema = tileSchema;
             _board = board;
         }
 
