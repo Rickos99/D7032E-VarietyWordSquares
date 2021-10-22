@@ -58,7 +58,11 @@ namespace Game.UI.Console.Menus
         {
             var sb = new StringBuilder();
 
-            sb.AppendLine(Seperator);
+            if (!string.IsNullOrEmpty(Seperator))
+            {
+                sb.AppendLine(Seperator);
+            }
+
             if (!string.IsNullOrWhiteSpace(Header))
             {
                 sb.AppendLine($" {Header}");
@@ -68,7 +72,11 @@ namespace Game.UI.Console.Menus
             {
                 sb.AppendLine($"  [{choice.Selector}] {choice.Description}");
             }
-            sb.AppendLine(Seperator);
+
+            if (!string.IsNullOrEmpty(Seperator))
+            {
+                sb.AppendLine(Seperator);
+            }
 
             return sb.ToString();
         }
