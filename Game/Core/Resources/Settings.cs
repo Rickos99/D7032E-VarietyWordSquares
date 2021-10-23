@@ -63,7 +63,10 @@ namespace Game.Core.Resources
             set => SetSetting("Resources.TileSchemaFile", value);
         }
 
-
+        public static int SizeOfNetworkBuffer
+        {
+            get => 4096;
+        }
 
         public static string[] GetAvaliableDictionaryFiles()
         {
