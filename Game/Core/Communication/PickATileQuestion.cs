@@ -2,7 +2,7 @@
 
 namespace Game.Core.Communication
 {
-    class PickLetterLocationQuestion : IQuestion
+    class PickATileQuestion : IQuestion
     {
         public IList<Choice> Choices { get; private set; }
 
@@ -10,11 +10,11 @@ namespace Game.Core.Communication
 
         public string Content { get; private set; }
 
-        public PickLetterLocationQuestion(char letter)
+        public PickATileQuestion()
         {
             Choices = null;
             HasChoices = false;
-            Content = $"Place {letter} (syntax: row column)";
+            Content += "Pick a letter";
         }
 
         public string GetMessageString()

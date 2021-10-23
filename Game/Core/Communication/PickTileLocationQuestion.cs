@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using Game.Core.Board;
+using System.Collections.Generic;
 
 namespace Game.Core.Communication
 {
-    class PickALetterQuestion : IQuestion
+    class PickTileLocationQuestion : IQuestion
     {
         public IList<Choice> Choices { get; private set; }
 
@@ -10,16 +11,11 @@ namespace Game.Core.Communication
 
         public string Content { get; private set; }
 
-        public PickALetterQuestion(bool isScrabbleMode)
+        public PickTileLocationQuestion(Tile tile)
         {
             Choices = null;
             HasChoices = false;
-            Content = string.Empty;
-            if (isScrabbleMode)
-            {
-                Content += "LETTER POINTS\n"; // TODO Get from a dictionary
-            }
-            Content += "Pick a letter";
+            Content = $"Place {tile.Letter} (syntax: row column. Example \"A0\")";
         }
 
         public string GetMessageString()
