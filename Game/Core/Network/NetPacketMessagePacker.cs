@@ -25,7 +25,7 @@ namespace Game.Core.Network
             {
                 return DeserializePayload<OpenQuestion>(packet.Payload);
             }
-            else if(type == typeof(TimedOpenQuestion))
+            else if (type == typeof(TimedOpenQuestion))
             {
                 return DeserializePayload<TimedOpenQuestion>(packet.Payload);
             }
@@ -33,7 +33,14 @@ namespace Game.Core.Network
             {
                 return DeserializePayload<InformationMessage>(packet.Payload);
             }
-
+            else if (type == typeof(PickATileQuestion))
+            {
+                return DeserializePayload<OpenQuestion>(packet.Payload);
+            }
+            else if (type == typeof(PickTileLocationQuestion))
+            {
+                return DeserializePayload<OpenQuestion>(packet.Payload);
+            }
             throw new UnknownMessageException();
         }
 

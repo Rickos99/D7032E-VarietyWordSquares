@@ -5,21 +5,21 @@ namespace Game.Core.Players
 {
     public class LocalPlayer : PlayerBase
     {
-        private IInputOutput _gameConsole;
+        private readonly IInputOutput _inputOutput;
 
-        public LocalPlayer()
+        public LocalPlayer(IInputOutput inputOutput)
         {
-            _gameConsole = new GameConsole();
+            _inputOutput = inputOutput;
         }
 
         public override string AskQuestion(IQuestion question)
         {
-            return _gameConsole.AskQuestion(question);
+            return _inputOutput.AskQuestion(question);
         }
 
         public override void SendMessage(IMessage message)
         {
-            _gameConsole.DisplayMessage(message);
+            _inputOutput.DisplayMessage(message);
         }
     }
 }

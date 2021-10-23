@@ -31,6 +31,9 @@ namespace Game.Core.Resources
         /// <summary>
         /// Check whether a letter exist in tileschema
         /// </summary>
+        /// <remarks>
+        /// The check is case insensitive.
+        /// </remarks>
         /// <param name="letter">Letter to check</param>
         /// <returns><c>true</c> if letter exist in tileschema; Otherwise <c>false</c></returns>
         public bool TileExist(char letter)

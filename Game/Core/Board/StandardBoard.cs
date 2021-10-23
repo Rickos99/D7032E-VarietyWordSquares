@@ -1,4 +1,5 @@
-﻿using Game.Core.Resources;
+﻿using Game.Core.Exceptions;
+using Game.Core.Resources;
 using Game.Util.Extensions;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,7 @@ namespace Game.Core.Board
         /// <param name="board">Letters to fill board with</param>
         public StandardBoard(Dictionary dictionary, bool enableScrabbleMode, Square[,] board)
         {
-            _board = board;
+            _board = DeepCopySquareArray(board);
             _dictionary = dictionary;
             _ScrabbleModeIsActive = enableScrabbleMode;
         }
@@ -73,8 +74,13 @@ namespace Game.Core.Board
         /// </summary>
         /// <param name="location">Location to insert letter at</param>
         /// <param name="tile">Tile to insert</param>
+        /// <exception cref="LocationOutsideBoardException"></exception>
         public void InsertTileAt(BoardLocation location, Tile tile)
         {
+            if (!LocationIsPresentOnBoard(location))
+            {
+                throw new LocationOutsideBoardException();
+            }
             _board[location.Row, location.Column].Tile = tile;
         }
 
@@ -82,8 +88,13 @@ namespace Game.Core.Board
         /// Remove a tile on a specified  location on board
         /// </summary>
         /// <param name="location">Location of tile to remove</param>
+        /// <exception cref="LocationOutsideBoardException"></exception>
         public void RemoveTileAt(BoardLocation location)
         {
+            if (!LocationIsPresentOnBoard(location))
+            {
+                throw new LocationOutsideBoardException();
+            }
             _board[location.Row, location.Column].Tile = null;
         }
 
@@ -123,6 +134,32 @@ namespace Game.Core.Board
         }
 
         /// <summary>
+        /// Check whether the row or column defined in <paramref name="location"/>
+        /// is present on <see cref="StandardBoard"/>.
+        /// </summary>
+        /// <param name="location"></param>
+        /// <returns><c>true</c> if location is present on board; Otherwise false</returns>
+        public bool LocationIsPresentOnBoard(BoardLocation location)
+        {
+            return location.Row < _board.GetLength(0) && location.Column < _board.GetLength(1);
+        }
+
+        /// <summary>
+        /// Check whether a location on board is empty.
+        /// </summary>
+        /// <param name="location">Location to check</param>
+        /// <returns>true<c> if the the location is empty; Otherwise false</c></returns>
+        /// <exception cref="LocationOutsideBoardException"></exception>
+        public bool LocationIsEmpty(BoardLocation location)
+        {
+            if (!LocationIsPresentOnBoard(location))
+            {
+                throw new LocationOutsideBoardException();
+            }
+            return _board[location.Row, location.Column].IsEmpty;
+        }
+
+        /// <summary>
         /// Get current board as a pretty string
         /// </summary>
         /// <remarks>
@@ -146,16 +183,48 @@ namespace Game.Core.Board
                 for (int col = 0; col < _board.GetLength(1); col++)
                 {
                     var square = _board[row, col];
-                    var tile = square.Tile;
-                    var letter = char.ToUpper(tile.Letter);
-                    var points = tile.Points;
-                    var str = _ScrabbleModeIsActive ? $"\t{letter} [{points}]" : $"\t  {letter}  ";
-                    sb.Append(BoardPainter.PaintSquare(str, square.SquareType));
+                    string tileString = "\t     ";
+                    if (!square.IsEmpty)
+                    {
+                        var tile = square.Tile;
+                        var letter = char.ToUpper(tile.Letter);
+                        var points = tile.Points;
+                        tileString = _ScrabbleModeIsActive ? $"\t{letter} [{points}]" : $"\t  {letter}  ";
+                    }
+                    sb.Append(BoardPainter.PaintSquare(tileString, square.SquareType));
                 }
                 sb.Append('\n');
             }
 
             return sb.ToString();
+        }
+
+        private Square[,] DeepCopySquareArray(Square[,] arr)
+        {
+            int numberOfRows = arr.GetLength(0);
+            int numberOfColumns = arr.GetLength(1);
+
+            var arrCopy = new Square[numberOfRows, numberOfColumns];
+            for (int row = 0; row < numberOfRows; row++)
+            {
+                for (int column = 0; column < numberOfColumns; column++)
+                {
+                    var originalSquare = arr[row, column];
+                    var originalSquareType = originalSquare.SquareType;
+                    var originalTile = originalSquare.Tile;
+
+                    Tile tileCopy = null;
+                    if (!originalSquare.IsEmpty)
+                    {
+                        tileCopy = new Tile(originalTile.Letter, originalTile.Points);
+                    }
+                    var squareCopy = new Square(originalSquareType, tileCopy);
+
+                    arrCopy[row, column] = squareCopy;
+                }
+            }
+
+            return arrCopy;
         }
 
         private void ReplaceSquaresOnBoard()
