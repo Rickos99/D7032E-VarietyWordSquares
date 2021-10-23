@@ -1,13 +1,9 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Game.Core.Network;
+﻿using FluentAssertions;
 using Game.Core.Communication;
-using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Net.Sockets;
-using FluentAssertions;
+using System.Threading.Tasks;
 
 namespace Game.Core.Network.Tests
 {
@@ -30,20 +26,41 @@ namespace Game.Core.Network.Tests
             }
         }
 
-        [DataTestMethod]
-        [DynamicData("Messages")]
-        [DoNotParallelize]
-        public void ClientHost_test(IMessage message)
+        private Host host;
+        private Client client;
+        private TcpClient hostClient;
+
+        [TestInitialize()]
+        public void Startup()
         {
             int port = 5500;
-            Host host = new Host(port);
-            Client client = new Client(port);
-            IMessage recievedMessage = null;
+            host = new Host(port);
+            client = new Client(port);
 
             host.Start();
             var connectionTask = Task.Run(() => host.WaitForIncomingConnection());
             client.OpenConnection();
-            var hostClient = connectionTask.Result;
+            hostClient = connectionTask.Result;
+        }
+
+        [TestCleanup()]
+        public void Cleanup()
+        {
+            host.DisconnectAllClients();
+            client.CloseConnection();
+            host.Stop();
+
+            host = null;
+            client = null;
+            hostClient = null;
+        }
+
+        [DataTestMethod]
+        [DynamicData(nameof(Messages))]
+        [DoNotParallelize]
+        public void ClientHost_test(IMessage message)
+        {
+            IMessage recievedMessage;
 
             // Message: Host -> Client
             Host.SendMessageToClient(message, hostClient);
@@ -54,10 +71,41 @@ namespace Game.Core.Network.Tests
             client.SendMessage(message);
             recievedMessage = Host.ReadMessageFromClient(hostClient);
             recievedMessage.Should().BeEquivalentTo(message);
+        }
 
-            host.DisconnectAllClients();
-            client.CloseConnection();
-            host.Stop();
+        [DataTestMethod]
+        [DynamicData(nameof(Messages))]
+        [DoNotParallelize]
+        public void ClientHostTest_TestMessageQueue(IMessage message)
+        {
+            IMessage recievedMessage;
+            int messagesToSend = 3;
+
+            // Send messages: Host -> Client
+            for (int i = 0; i < messagesToSend; i++)
+            {
+                Host.SendMessageToClient(message, hostClient);
+            }
+
+            // Recieve messages: Client
+            for (int i = 0; i < messagesToSend; i++)
+            {
+                recievedMessage = client.ReadMessage();
+                recievedMessage.Should().BeEquivalentTo(message);
+            }
+
+            // Send messages: Client -> Host
+            for (int i = 0; i < messagesToSend; i++)
+            {
+                client.SendMessage(message);
+            }
+
+            // Recieve messages: Host
+            for (int i = 0; i < messagesToSend; i++)
+            {
+                recievedMessage = Host.ReadMessageFromClient(hostClient);
+                recievedMessage.Should().BeEquivalentTo(message);
+            }
         }
     }
 }

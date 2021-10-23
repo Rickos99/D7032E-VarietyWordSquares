@@ -1,4 +1,5 @@
 ﻿using Game.Core.Communication;
+using Game.Core.Resources;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -12,6 +13,7 @@ namespace Game.Core.Network
         public IPAddress IpAddress { get; private set; }
 
         private readonly TcpClient tcpClient = null;
+        private readonly int _sizeOfNetworkBuffer = Settings.SizeOfNetworkBuffer;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Client"/> class with 
@@ -73,8 +75,8 @@ namespace Game.Core.Network
         /// <returns>The message that was read</returns>
         public IMessage ReadMessage()
         {
-            var dataBuffer = new byte[1024];
-            var bytes = tcpClient.GetStream().Read(dataBuffer, 0, dataBuffer.Length);
+            var dataBuffer = new byte[_sizeOfNetworkBuffer];
+            var bytes = NetStreamHelper.ReadOneJsonSequence(dataBuffer, tcpClient.GetStream());
             var packetAsJson = Encoding.UTF8.GetString(dataBuffer, 0, bytes);
             var packet = JsonSerializer.Deserialize<NetPacket<IMessage>>(packetAsJson);
             var message = NetPacketMessagePacker.Unpack(packet);
