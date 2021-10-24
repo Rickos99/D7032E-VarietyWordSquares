@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
 
 namespace Game.Core.Board
 {
-    internal static class SquareArrayExtension
+    public static class SquareArrayExtension
     {
-
-        public static IEnumerable<KeyValuePair<string, List<Square>>> GetAllSubEntries(this Square[,] board, bool allowDuplicateSubEntries)
+        public static IEnumerable<List<Square>> GetAllSubSequences(this Square[,] board)
         {
-            var alreadyFoundSubstrings = new HashSet<string>();
-            var subEntriesFound = new List<KeyValuePair<string, List<Square>>>();
+            var subEntriesFound = new List<List<Square>>();
 
             subEntriesFound.AddRange(GetSubEntriesInRows());
             subEntriesFound.AddRange(GetSubEntriesInColumns());
@@ -18,9 +15,9 @@ namespace Game.Core.Board
 
             return subEntriesFound;
 
-            List<KeyValuePair<string, List<Square>>> GetSubEntriesInRows()
+            List<List<Square>> GetSubEntriesInRows()
             {
-                var rows = new List<KeyValuePair<string, List<Square>>>();
+                var rows = new List<List<Square>>();
                 for (int row = 0; row < board.GetLength(0); row++)
                 {
                     var rowEntries = new List<Square>(board.GetLength(0));
@@ -28,14 +25,14 @@ namespace Game.Core.Board
                     {
                         rowEntries.Add(board[row, col]);
                     }
-                    rows.AddRange(GetUniqueSubEntries(rowEntries));
+                    rows.AddRange(GetSubEntries(rowEntries));
                 }
                 return rows;
             }
 
-            List<KeyValuePair<string, List<Square>>> GetSubEntriesInColumns()
+            List<List<Square>> GetSubEntriesInColumns()
             {
-                var columns = new List<KeyValuePair<string, List<Square>>>();
+                var columns = new List<List<Square>>();
                 for (int col = 0; col < board.GetLength(1); col++)
                 {
                     var colEntries = new List<Square>(board.GetLength(0));
@@ -43,26 +40,26 @@ namespace Game.Core.Board
                     {
                         colEntries.Add(board[row, col]);
                     }
-                    columns.AddRange(GetUniqueSubEntries(colEntries));
+                    columns.AddRange(GetSubEntries(colEntries));
                 }
                 return columns;
             }
 
-            List<KeyValuePair<string, List<Square>>> GetSubEntriesInForwardDiagonals()
+            List<List<Square>> GetSubEntriesInForwardDiagonals()
             {
-                var diagonals = new List<KeyValuePair<string, List<Square>>>();
+                var diagonals = new List<List<Square>>();
                 // Find all forward diagnonals while moving along first row
                 for (int boardCol = board.GetLength(1) - 1; boardCol > 0; boardCol--)
-                    diagonals.AddRange(GetUniqueSubEntriesInForwardDiagonal(0, boardCol));
+                    diagonals.AddRange(GetSubEntriesInForwardDiagonal(0, boardCol));
 
                 // Find all forward diagonals while moving along first column
                 for (int boardRow = 0; boardRow < board.GetLength(0); boardRow++)
-                    diagonals.AddRange(GetUniqueSubEntriesInForwardDiagonal(boardRow, 0));
+                    diagonals.AddRange(GetSubEntriesInForwardDiagonal(boardRow, 0));
 
                 return diagonals;
             }
 
-            List<KeyValuePair<string, List<Square>>> GetUniqueSubEntriesInForwardDiagonal(int row, int col)
+            List<List<Square>> GetSubEntriesInForwardDiagonal(int row, int col)
             {
                 int rowLimit = board.GetLength(0);
                 int colLimit = board.GetLength(1);
@@ -73,42 +70,32 @@ namespace Game.Core.Board
                     diagEntries.Add(board[row, col]);
                 } while (++row < rowLimit && ++col < colLimit);
 
-                return GetUniqueSubEntries(diagEntries);
+                return GetSubEntries(diagEntries);
             }
 
-            List<KeyValuePair<string, List<Square>>> GetUniqueSubEntries(List<Square> entries)
+            List<List<Square>> GetSubEntries(List<Square> entries)
             {
-                var subEntries = new List<KeyValuePair<string, List<Square>>>();
+                var subEntries = new List<List<Square>>();
                 for (int i = 0; i < entries.Count; i++)
                 {
                     for (int j = i + 1; j <= entries.Count; j++)
                     {
                         List<Square> subEntry = entries.GetRange(i, j - i);
-                        string subEntryStr = GetEntriesAsString(subEntry);
-
-                        if (allowDuplicateSubEntries)
-                        {
-                            subEntries.Add(new(subEntryStr, subEntry));
-                        }
-                        else if (!alreadyFoundSubstrings.Contains(subEntryStr))
-                        {
-                            alreadyFoundSubstrings.Add(subEntryStr);
-                            subEntries.Add(new(subEntryStr, subEntry));
-                        }
+                        subEntries.Add(subEntry);
                     }
                 }
                 return subEntries;
             }
+        }
 
-            string GetEntriesAsString(List<Square> entries)
+        public static string GetEntriesAsString(this List<Square> squares)
+        {
+            var sb = new StringBuilder();
+            foreach (var square in squares)
             {
-                var sb = new StringBuilder();
-                foreach (var entry in entries)
-                {
-                    sb.Append(entry.Tile.Letter);
-                }
-                return sb.ToString();
+                sb.Append(square.Tile.Letter);
             }
+            return sb.ToString();
         }
     }
 }

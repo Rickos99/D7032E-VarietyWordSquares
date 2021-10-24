@@ -1,6 +1,6 @@
-﻿using Game.Util.DataStructures.StringSearch;
+﻿using Game.Core.Board;
+using Game.Core.Board.DataStructures;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 
 namespace Game.Core.Resources
@@ -17,7 +17,7 @@ namespace Game.Core.Resources
         /// </summary>
         public int WordCount { get; private set; }
 
-        private readonly Trie _words;
+        private readonly SquareTrie _words;
 
         /// <summary>
         /// Initialize a new instance of the <see cref="Dictionary"/> class with 
@@ -29,9 +29,9 @@ namespace Game.Core.Resources
         {
             Name = name;
             WordCount = words.Count();
-            _words = new Trie();
+            _words = new SquareTrie();
             _words.InsertRange(words
-                .Where((w)=> !string.IsNullOrEmpty(w))
+                .Where((w) => !string.IsNullOrEmpty(w))
                 .Select((w) => w.ToLower()));
         }
 
@@ -46,24 +46,13 @@ namespace Game.Core.Resources
         }
 
         /// <summary>
-        /// Load dictionary from file
+        /// Check whether the dictionary contains a specific square sequence
         /// </summary>
-        /// <param name="filepath">Path to file</param>
-        /// <returns>The dictionary that was found</returns>
-        /// <exception cref="FileLoadException"></exception>
-        public static Dictionary LoadFromFile(string filepath)
+        /// <param name="sequence">Square sequence to check</param>
+        /// <returns><c>true</c> if dictionary contains <paramref name="sequence"/>; Otherwise <c>false</c></returns>
+        public bool ContainsSquareSequence(List<Square> sequence)
         {
-            string name = Path.GetFileNameWithoutExtension(filepath);
-            IEnumerable<string> words;
-            try
-            {
-                words = File.ReadLines(filepath);
-            }
-            catch
-            {
-                throw new FileLoadException("The specified dictionary could not be loaded", filepath);
-            }
-            return new Dictionary(name, words);
+            return _words.Search(sequence);
         }
     }
 }

@@ -28,20 +28,15 @@ namespace Game.UI.Console.Menus
         private static void PlayStandardWordSquares()
         {
             System.Console.WriteLine("An instance of Standard Word Square is starting");
-            var boardLayout = new Square[3, 3] {
-                    { new(SquareType.Regular), new(SquareType.Regular), new(SquareType.Regular)},
-                    { new(SquareType.Regular), new(SquareType.Regular), new(SquareType.Regular)},
-                    { new(SquareType.Regular), new(SquareType.Regular), new(SquareType.Regular)},
-                };
-
             var gameInstance = new StandardWordSquare(
                 new GameConsole(),
-                Dictionary.LoadFromFile(Path.Combine(Settings.DictionaryFolder, Settings.DictionaryFile)),
+                new DictionaryLoader().LoadFromFile(Path.Combine(Settings.DictionaryFolder, Settings.DictionaryFile)),
                 TileSchema.LoadFromFile(Path.Combine(Settings.TileSchemaFolder, Settings.TileSchemaFile)),
-                boardLayout,
                 new Host(5500),
                 (int)Settings.NumberOfBots,
                 (int)Settings.NumberOfPlayers,
+                (int)Settings.BoardRowSize,
+                (int)Settings.BoardColumnSize,
                 null
             );
             gameInstance.Start();

@@ -1,8 +1,6 @@
 ﻿using Game.Core.Exceptions;
-using Game.Core.Resources;
 using Game.Util.Extensions;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace Game.Core.Board
@@ -10,8 +8,6 @@ namespace Game.Core.Board
     public class StandardBoard
     {
         private readonly Square[,] _board;
-        private readonly Dictionary _dictionary;
-        private readonly bool _ScrabbleModeIsActive;
 
         public int NumberOfRows => _board.GetLength(0);
 
@@ -19,54 +15,21 @@ namespace Game.Core.Board
 
         /// <summary>
         /// Initialize a new instance of the <see cref="StandardBoard"/> class
-        /// with a prefilled board
+        /// with a predefined board
         /// </summary>
-        /// <param name="dictionary">Dictionary to use when calculating board score</param>
-        /// <param name="enableScrabbleMode">Indicate if the board is in scrabbleMode</param>
         /// <param name="board">Letters to fill board with</param>
-        public StandardBoard(Dictionary dictionary, bool enableScrabbleMode, Square[,] board)
+        public StandardBoard(Square[,] board)
         {
             _board = DeepCopySquareArray(board);
-            _dictionary = dictionary;
-            _ScrabbleModeIsActive = enableScrabbleMode;
         }
 
         /// <summary>
-        /// Initialize a new instance of the <see cref="StandardBoard"/> class
-        /// with a quadratic board and a width and height of 
-        /// <paramref name="dimension"/>.
+        /// Get all square sequences, including left to right rows, downwards columns, and forward diagonals.
         /// </summary>
-        /// <param name="dictionary">Dictionary to use when calculating board score</param>
-        /// <param name="enableScrabbleMode">Indicate if the board is in scrabbleMode</param>
-        /// <param name="dimension">Width and height of board</param>
-        public StandardBoard(Dictionary dictionary, bool enableScrabbleMode, int dimension)
-            : this(dictionary, enableScrabbleMode, dimension, dimension)
+        /// <returns>All square sequences on board</returns>
+        public IEnumerable<List<Square>> GetAllSquareSequences()
         {
-        }
-
-        /// <summary>
-        /// Initialize a new instance of the <see cref="StandardBoard"/> class
-        /// with a rectangular board of <paramref name="rowCount"/> rows and 
-        /// <paramref name="columnCount"/> columns.
-        /// </summary>
-        /// <param name="dictionary">Dictionary to use when calculating board score</param>
-        /// <param name="enableScrabbleMode">Indicate if the board is in scrabbleMode</param>
-        /// <param name="rowCount">Number of rows in board</param>
-        /// <param name="columnCount">Number of columns in board</param>
-        public StandardBoard(Dictionary dictionary, bool enableScrabbleMode, int rowCount, int columnCount)
-        {
-            _board = new Square[rowCount, columnCount];
-            _dictionary = dictionary;
-            _ScrabbleModeIsActive = enableScrabbleMode;
-
-            ReplaceSquaresOnBoard();
-        }
-
-
-        public IEnumerable<KeyValuePair<string, List<Square>>> GetAllWords()
-        {
-            return _board.GetAllSubEntries(!_ScrabbleModeIsActive)
-                .Where((entry) => _dictionary.ContainsWord(entry.Key));
+            return _board.GetAllSubSequences();
         }
 
         /// <summary>
@@ -166,7 +129,7 @@ namespace Game.Core.Board
         /// All letters on board will be in uppercase even if they was inserted as lowercase
         /// </remarks>
         /// <returns>Current board as a pretty string</returns>
-        public string GetBoardAsString()
+        public string GetBoardAsString(bool printPoints)
         {
             var sb = new StringBuilder();
             // Print header
@@ -189,7 +152,7 @@ namespace Game.Core.Board
                         var tile = square.Tile;
                         var letter = char.ToUpper(tile.Letter);
                         var points = tile.Points;
-                        tileString = _ScrabbleModeIsActive ? $"\t{letter} [{points}]" : $"\t  {letter}  ";
+                        tileString = printPoints ? $"\t{letter} [{points}]" : $"\t  {letter}  ";
                     }
                     sb.Append(BoardPainter.PaintSquare(tileString, square.SquareType));
                 }
