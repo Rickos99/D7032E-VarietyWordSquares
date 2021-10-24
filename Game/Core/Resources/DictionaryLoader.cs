@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Game.Core.Language;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Game.Core.Resources

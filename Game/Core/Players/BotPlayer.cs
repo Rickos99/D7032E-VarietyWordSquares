@@ -1,6 +1,6 @@
 ﻿using Game.Core.Board;
 using Game.Core.Communication;
-using Game.Core.Resources;
+using Game.Core.Language;
 using System;
 using System.Linq;
 

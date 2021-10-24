@@ -3,13 +3,13 @@ using Game.Core.Board.Builders;
 using Game.Core.IO;
 using Game.Core.Network;
 using Game.Core.Players;
-using Game.Core.Resources;
 using Game.Core.Communication;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Text;
+using Game.Core.Language;
 
 namespace Game.Core.GameModes
 {

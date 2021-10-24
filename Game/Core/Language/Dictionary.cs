@@ -3,7 +3,7 @@ using Game.Core.Board.DataStructures;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Game.Core.Resources
+namespace Game.Core.Language
 {
     public sealed class Dictionary
     {

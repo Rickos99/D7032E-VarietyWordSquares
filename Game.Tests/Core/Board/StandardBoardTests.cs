@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FluentAssertions;
-using Game.Core.Resources;
+using Game.Core.Language;
 
 namespace Game.Core.Board.Tests
 {

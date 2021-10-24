@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace Game.Core.Resources
+namespace Game.Core.Language
 {
     public class TileSchema
     {
@@ -59,9 +59,9 @@ namespace Game.Core.Resources
                     tiles.Add(GetTileFromString(line));
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                if(e is IndexOutOfRangeException || 
+                if (e is IndexOutOfRangeException ||
                    e is FormatException)
                 {
                     throw new FileLoadException("Invalid value format in tileschema file.", filepath);
