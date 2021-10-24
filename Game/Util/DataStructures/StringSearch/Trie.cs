@@ -4,7 +4,7 @@ namespace Game.Util.DataStructures.StringSearch
 {
     public class Trie
     {
-        private readonly Node _root;
+        protected readonly Node _root;
 
         /// <summary>
         /// Initialize a new instance of <see cref="Trie"/> class
