@@ -5,13 +5,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Game.Core.Resources;
 using FluentAssertions;
+using Game.Core.Resources;
 
 namespace Game.Core.Board.Tests
 {
     [TestClass]
-    public class StandardBoardTests_ScrabbleModeDisabled
+    public class StandardBoardTests
     {
         private Dictionary _dictionary
         {
@@ -21,7 +21,7 @@ namespace Game.Core.Board.Tests
             }
         }
 
-        private Square[,] _predefinedBoard
+        private Square[,] _predefinedBoard9Squares
         {
             get
             {
@@ -33,24 +33,35 @@ namespace Game.Core.Board.Tests
             }
         }
 
+        private Square[,] _predefinedEmptyBoard4Squares
+        {
+            get
+            {
+                return new Square[,] {
+                    { new(SquareType.Regular), new(SquareType.Regular)},
+                    { new(SquareType.Regular), new(SquareType.Regular)},
+                };
+            }
+        }
+
         [TestMethod]
         public void BoardIsFilledTest_WhenBoardIsEmpty()
         {
-            var board = new StandardBoard(_dictionary, false, 3);
+            var board = new StandardBoard(_predefinedEmptyBoard4Squares);
             board.IsFilled().Should().BeFalse();
         }
 
         [TestMethod]
         public void BoardIsFilledTest_WhenBoardIsFilled()
         {
-            var board = new StandardBoard(_dictionary, false, _predefinedBoard);
+            var board = new StandardBoard(_predefinedBoard9Squares);
             board.IsFilled().Should().BeTrue();
         }
 
         [TestMethod]
         public void GetAllEmptyLocationsTest()
         {
-            var board = new StandardBoard(_dictionary, false, 2);
+            var board = new StandardBoard(_predefinedEmptyBoard4Squares);
             board.InsertTileAt(new BoardLocation(0, 0), new Tile('a', 1));
             board.InsertTileAt(new BoardLocation(0, 1), new Tile('b', 1));
 
@@ -62,25 +73,25 @@ namespace Game.Core.Board.Tests
         }
 
         [TestMethod]
-        public void GetAllWordsTest()
+        public void GetAllSquareSequences()
         {
-            var board = new StandardBoard(_dictionary, false, _predefinedBoard);
-            var expectedWords = new List<KeyValuePair<string, List<Square>>>() {
-                new("ab", new List<Square>(){
+            var board = new StandardBoard(_predefinedBoard9Squares);
+            var expectedWords = new List<List<Square>>() {
+                new List<Square>(){
                     new(SquareType.Regular, new('a', 1)),
                     new(SquareType.Regular, new('b', 1)),
-                }),
-                new("de", new List<Square>(){
+                },
+                new List<Square>(){
                     new(SquareType.Regular, new('d', 1)),
                     new(SquareType.Regular, new('e', 1)),
-                }),
-                new("ei", new List<Square>(){
+                },
+                new List<Square>(){
                     new(SquareType.Regular, new('e', 1)),
                     new(SquareType.Regular, new('i', 1)),
-                })
+                }
             };
 
-            var actualWords = board.GetAllWords();
+            var actualWords = board.GetAllSquareSequences().Where(sequence => _dictionary.ContainsSquareSequence(sequence));
 
             actualWords.Should().BeEquivalentTo(expectedWords);
         }

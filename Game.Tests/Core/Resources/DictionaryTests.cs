@@ -50,7 +50,7 @@ namespace Game.Core.Resources.Tests
         public void LoadFromFileTest()
         {
             var dictionaryPath = Path.Combine(TestResourceLocator.Location, "dictionary_test.txt");
-            var dictionary = Dictionary.LoadFromFile(dictionaryPath);
+            var dictionary = new DictionaryLoader().LoadFromFile(dictionaryPath);
 
             dictionary.ContainsWord("lorem").Should().BeTrue();
             dictionary.WordCount.Should().Be(5);
@@ -61,7 +61,7 @@ namespace Game.Core.Resources.Tests
         public void LoadFromFileTest_ShouldThrowException()
         {
             var dictionaryPath = Path.Combine(TestResourceLocator.Location, "NO_FILE.txt");
-            Assert.ThrowsException<FileLoadException>(() => _ = Dictionary.LoadFromFile(dictionaryPath));
+            Assert.ThrowsException<FileLoadException>(() => _ = new DictionaryLoader().LoadFromFile(dictionaryPath));
         }
     }
 }

@@ -3,7 +3,7 @@ using System.IO;
 
 namespace Game.Core.Resources
 {
-    class DictionaryLoader : IResourceLoader<Dictionary>
+    public class DictionaryLoader : IResourceLoader<Dictionary>
     {
         /// <summary>
         /// Load dictionary from file
