@@ -17,7 +17,8 @@ namespace Game.Core.GameModes.Rules
         /// <summary>
         /// Check whether the specified board fulfill the gameover condition.
         /// </summary>
+        /// <param name="board">Board to check</param>
         /// <returns><c>true</c> if the board fulfill the gameover condition; Otherwise <c>false</c>. </returns>
-        bool BoardHasReachedGameOver();
+        bool BoardHasReachedGameOver(StandardBoard board);
     }
 }
