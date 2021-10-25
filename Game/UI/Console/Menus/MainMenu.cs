@@ -1,5 +1,6 @@
 ﻿using Game.Core.Board;
 using Game.Core.GameModes;
+using Game.Core.GameModes.Rules;
 using Game.Core.IO;
 using Game.Core.Language;
 using Game.Core.Network;
@@ -28,19 +29,22 @@ namespace Game.UI.Console.Menus
 
         private static void PlayStandardWordSquares()
         {
-            System.Console.WriteLine("An instance of Standard Word Square is starting");
+            var gameConsole = new GameConsole();
+            var dictionary = LoadDictionary();
+            var tileSchema = LoadTileSchema();
+            var networkHost = CreateNetworkHost();
+
             var gameInstance = new StandardWordSquare(
-                new GameConsole(),
-                new DictionaryLoader().LoadFromFile(Path.Combine(Settings.DictionaryFolder, Settings.DictionaryFile)),
-                TileSchema.LoadFromFile(Path.Combine(Settings.TileSchemaFolder, Settings.TileSchemaFile)),
-                new Host(5500),
+                gameConsole,
+                dictionary,
+                tileSchema,
+                networkHost,
                 (int)Settings.NumberOfBots,
                 (int)Settings.NumberOfPlayers,
                 (int)Settings.BoardRowSize,
-                (int)Settings.BoardColumnSize,
-                null
+                (int)Settings.BoardColumnSize
             );
-            gameInstance.Start();
+            gameInstance.Run();
         }
 
         private static void PlayScrabbleSquares()
@@ -56,6 +60,21 @@ namespace Game.UI.Console.Menus
         private static void ExitApplication()
         {
             Environment.Exit(0);
+        }
+
+        private static Dictionary LoadDictionary()
+        {
+            return new DictionaryLoader().LoadFromFile(Path.Combine(Settings.DictionaryFolder, Settings.DictionaryFile));
+        }
+
+        private static TileSchema LoadTileSchema()
+        {
+            return TileSchema.LoadFromFile(Path.Combine(Settings.TileSchemaFolder, Settings.TileSchemaFile));
+        }
+
+        private static Host CreateNetworkHost()
+        {
+            return new Host(5500);
         }
     }
 }

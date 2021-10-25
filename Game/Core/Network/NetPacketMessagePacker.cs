@@ -15,38 +15,10 @@ namespace Game.Core.Network
 
         public static IMessage Unpack(NetPacket<IMessage> packet)
         {
-            Type type = Type.GetType(packet.PayloadType);
+            Type type = Type.GetType(packet.PayloadType) ?? throw new UnknownMessageException();
 
-            if (type == typeof(ClosedQuestion))
-            {
-                return DeserializePayload<ClosedQuestion>(packet.Payload);
-            }
-            else if (type == typeof(OpenQuestion))
-            {
-                return DeserializePayload<OpenQuestion>(packet.Payload);
-            }
-            else if (type == typeof(TimedOpenQuestion))
-            {
-                return DeserializePayload<TimedOpenQuestion>(packet.Payload);
-            }
-            else if (type == typeof(InformationMessage))
-            {
-                return DeserializePayload<InformationMessage>(packet.Payload);
-            }
-            else if (type == typeof(PickATileQuestion))
-            {
-                return DeserializePayload<OpenQuestion>(packet.Payload);
-            }
-            else if (type == typeof(PickTileLocationQuestion))
-            {
-                return DeserializePayload<OpenQuestion>(packet.Payload);
-            }
-            throw new UnknownMessageException();
-        }
-
-        private static T DeserializePayload<T>(string payload)
-        {
-            return JsonSerializer.Deserialize<T>(payload);
+            var msg = (IMessage)JsonSerializer.Deserialize(packet.Payload, type);
+            return msg;
         }
     }
 }

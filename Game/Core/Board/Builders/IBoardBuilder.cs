@@ -42,6 +42,18 @@ namespace Game.Core.Board.Builders
         IBoardBuilder UseRandomizedLayout(SquareType[] squareTypes, int? seed);
 
         /// <summary>
+        /// display tile points when getting the board as string.
+        /// </summary>
+        /// <returns>The same instance of the <see cref="IBoardBuilder"/> for chaining</returns>
+        IBoardBuilder DisplayTilePoints();
+
+        /// <summary>
+        /// Hide tile points when getting the board as string.
+        /// </summary>
+        /// <returns>The same instance of the <see cref="IBoardBuilder"/> for chaining</returns>
+        IBoardBuilder HideTilePoints();
+
+        /// <summary>
         /// Run the given actions to initialize the board. This can be only be
         /// called once.
         /// </summary>

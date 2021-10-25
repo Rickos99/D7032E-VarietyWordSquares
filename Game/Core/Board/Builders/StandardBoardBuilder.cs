@@ -9,6 +9,7 @@ namespace Game.Core.Board.Builders
         private int _boardRows;
         private int _boardColumns;
         private bool _boardBuilt;
+        private bool _displayPointsOnBoard;
         private List<Action<Square[,]>> _buildActions = new();
 
         /// <summary>
@@ -37,7 +38,7 @@ namespace Game.Core.Board.Builders
             }
 
             _boardBuilt = true;
-            return new StandardBoard(board);
+            return new StandardBoard(board, _displayPointsOnBoard);
         }
 
         public IBoardBuilder FillWith(Tile[,] tiles)
@@ -68,6 +69,20 @@ namespace Game.Core.Board.Builders
         public IBoardBuilder UseRandomizedLayout(SquareType[] squareTypes, int? seed)
         {
             _buildActions.Add(board => ApplyRandomLayoutOnBoardAction(board, squareTypes, seed));
+
+            return this;
+        }
+
+        public IBoardBuilder DisplayTilePoints()
+        {
+            _buildActions.Add(board => _displayPointsOnBoard = true);
+
+            return this;
+        }
+
+        public IBoardBuilder HideTilePoints()
+        {
+            _buildActions.Add(board => _displayPointsOnBoard = false);
 
             return this;
         }

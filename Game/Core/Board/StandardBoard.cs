@@ -8,6 +8,7 @@ namespace Game.Core.Board
     public class StandardBoard
     {
         private readonly Square[,] _board;
+        private readonly bool _displayPointsOnBoard;
 
         public int NumberOfRows => _board.GetLength(0);
 
@@ -18,9 +19,11 @@ namespace Game.Core.Board
         /// with a predefined board
         /// </summary>
         /// <param name="board">Letters to fill board with</param>
-        public StandardBoard(Square[,] board)
+        /// <param name="displayPointsOnBoard">Indicate whether to display tile points when getting the board as string</param>
+        public StandardBoard(Square[,] board, bool displayPointsOnBoard)
         {
             _board = board.DeepCopy();
+            _displayPointsOnBoard = displayPointsOnBoard;
         }
 
         /// <summary>
@@ -129,7 +132,7 @@ namespace Game.Core.Board
         /// All letters on board will be in uppercase even if they was inserted as lowercase
         /// </remarks>
         /// <returns>Current board as a pretty string</returns>
-        public string GetBoardAsString(bool printPoints)
+        public string GetBoardAsString()
         {
             var sb = new StringBuilder();
             // Print header
@@ -152,7 +155,7 @@ namespace Game.Core.Board
                         var tile = square.Tile;
                         var letter = char.ToUpper(tile.Letter);
                         var points = tile.Points;
-                        tileString = printPoints ? $"\t{letter} [{points}]" : $"\t  {letter}  ";
+                        tileString = _displayPointsOnBoard ? $"\t{letter} [{points}]" : $"\t  {letter}  ";
                     }
                     sb.Append(BoardPainter.PaintSquare(tileString, square.SquareType));
                 }

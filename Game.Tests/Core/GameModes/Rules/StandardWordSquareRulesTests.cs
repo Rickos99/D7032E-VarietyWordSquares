@@ -97,7 +97,7 @@ namespace Game.Core.GameModes.Rules.Tests
         [DynamicData(nameof(TestData_NotFilledSquareArrays))]
         public void BoardHasReachedGameOver_NotFilledBoard(Square[,] squares)
         {
-            var board = new StandardBoard(squares);
+            var board = new StandardBoard(squares, default);
             var rules = new StandardWordSquareRules(_dictionary);
             rules.BoardHasReachedGameOver(board).Should().BeFalse();
         }
@@ -105,7 +105,7 @@ namespace Game.Core.GameModes.Rules.Tests
         [TestMethod]
         public void BoardHasReachedGameOver_FilledBoard()
         {
-            var board = new StandardBoard(_predefinedSquares_3x3_Filled);
+            var board = new StandardBoard(_predefinedSquares_3x3_Filled, default);
             var rules = new StandardWordSquareRules(_dictionary);
             rules.BoardHasReachedGameOver(board).Should().BeTrue();
         }
@@ -114,7 +114,7 @@ namespace Game.Core.GameModes.Rules.Tests
         [DynamicData(nameof(TestData_ScoreValueOf_FilledSquareArrays))]
         public void CalculateScoreTest(Square[,] squares, int score)
         {
-            var board = new StandardBoard(squares);
+            var board = new StandardBoard(squares, default);
             var rules = new StandardWordSquareRules(_dictionary);
             rules.CalculateScore(board).Should().Be(score);
         }

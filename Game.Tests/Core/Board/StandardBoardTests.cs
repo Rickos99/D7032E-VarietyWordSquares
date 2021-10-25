@@ -47,21 +47,21 @@ namespace Game.Core.Board.Tests
         [TestMethod]
         public void BoardIsFilledTest_WhenBoardIsEmpty()
         {
-            var board = new StandardBoard(_predefinedEmptyBoard4Squares);
+            var board = new StandardBoard(_predefinedEmptyBoard4Squares, default);
             board.IsFilled().Should().BeFalse();
         }
 
         [TestMethod]
         public void BoardIsFilledTest_WhenBoardIsFilled()
         {
-            var board = new StandardBoard(_predefinedBoard9Squares);
+            var board = new StandardBoard(_predefinedBoard9Squares, default);
             board.IsFilled().Should().BeTrue();
         }
 
         [TestMethod]
         public void GetAllEmptyLocationsTest()
         {
-            var board = new StandardBoard(_predefinedEmptyBoard4Squares);
+            var board = new StandardBoard(_predefinedEmptyBoard4Squares, default);
             board.InsertTileAt(new BoardLocation(0, 0), new Tile('a', 1));
             board.InsertTileAt(new BoardLocation(0, 1), new Tile('b', 1));
 
@@ -75,7 +75,7 @@ namespace Game.Core.Board.Tests
         [TestMethod]
         public void GetAllSquareSequences()
         {
-            var board = new StandardBoard(_predefinedBoard9Squares);
+            var board = new StandardBoard(_predefinedBoard9Squares, default);
             var expectedWords = new List<List<Square>>() {
                 new List<Square>(){
                     new(SquareType.Regular, new('a', 1)),
