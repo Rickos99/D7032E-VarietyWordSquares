@@ -20,7 +20,7 @@ namespace Game.Core.Board
         /// <param name="board">Letters to fill board with</param>
         public StandardBoard(Square[,] board)
         {
-            _board = DeepCopySquareArray(board);
+            _board = board.DeepCopy();
         }
 
         /// <summary>
@@ -160,45 +160,6 @@ namespace Game.Core.Board
             }
 
             return sb.ToString();
-        }
-
-        private Square[,] DeepCopySquareArray(Square[,] arr)
-        {
-            int numberOfRows = arr.GetLength(0);
-            int numberOfColumns = arr.GetLength(1);
-
-            var arrCopy = new Square[numberOfRows, numberOfColumns];
-            for (int row = 0; row < numberOfRows; row++)
-            {
-                for (int column = 0; column < numberOfColumns; column++)
-                {
-                    var originalSquare = arr[row, column];
-                    var originalSquareType = originalSquare.SquareType;
-                    var originalTile = originalSquare.Tile;
-
-                    Tile tileCopy = null;
-                    if (!originalSquare.IsEmpty)
-                    {
-                        tileCopy = new Tile(originalTile.Letter, originalTile.Points);
-                    }
-                    var squareCopy = new Square(originalSquareType, tileCopy);
-
-                    arrCopy[row, column] = squareCopy;
-                }
-            }
-
-            return arrCopy;
-        }
-
-        private void ReplaceSquaresOnBoard()
-        {
-            for (int row = 0; row < _board.GetLength(0); row++)
-            {
-                for (int col = 0; col < _board.GetLength(1); col++)
-                {
-                    _board[row, col] = new Square(SquareType.Regular);
-                }
-            }
         }
     }
 }
