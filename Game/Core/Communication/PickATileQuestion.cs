@@ -2,7 +2,7 @@
 
 namespace Game.Core.Communication
 {
-    class PickATileQuestion : IQuestion
+    public class PickATileQuestion : IQuestion
     {
         public IList<Choice> Choices { get; private set; }
 

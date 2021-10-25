@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using Game.Core.Board;
 using Game.Core.Communication;
 using Game.Core.Exceptions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -21,7 +22,10 @@ namespace Game.Core.Network.Tests
                     new object[]{new ClosedQuestion("Is the fox brown?", new List<Choice>() {
                             new Choice("y", "Yes"),
                             new Choice("n", "No"),
-                        })}
+                        })},
+                    new object[]{new GameHasEndedMessage()},
+                    new object[]{new PickATileQuestion()},
+                    new object[]{new PickTileLocationQuestion(new Tile('A', 1))}
                 };
             }
         }

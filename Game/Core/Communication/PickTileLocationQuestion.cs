@@ -1,15 +1,24 @@
 ﻿using Game.Core.Board;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Game.Core.Communication
 {
-    class PickTileLocationQuestion : IQuestion
+    public class PickTileLocationQuestion : IQuestion
     {
         public IList<Choice> Choices { get; private set; }
 
         public bool HasChoices { get; private set; }
 
         public string Content { get; private set; }
+
+        [JsonConstructor]
+        public PickTileLocationQuestion(string content)
+        {
+            Choices = null;
+            HasChoices = false;
+            Content = content;
+        }
 
         public PickTileLocationQuestion(Tile tile)
         {
