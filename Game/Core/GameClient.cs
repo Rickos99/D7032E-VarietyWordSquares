@@ -10,12 +10,6 @@ namespace Game.Core
         private readonly IInputOutput _inputOutput;
         private readonly Client _client;
 
-        /*
-        * FLOW:
-        * 1. Connect to game
-        * 2. Wait for incoming messages and act if the message is an question
-        * 
-        */
         public GameClient(IInputOutput inputOutput, IPEndPoint endPoint)
         {
             _inputOutput = inputOutput;
@@ -33,11 +27,15 @@ namespace Game.Core
                     var answer = _inputOutput.AskQuestion(question);
                     _client.SendMessage(new InformationMessage(answer));
                 }
+                else if (message is GameHasEndedMessage m)
+                {
+                    _inputOutput.DisplayMessage(m);
+                    break;
+                }
                 else
                 {
                     _inputOutput.DisplayMessage(message);
                 }
-                // TODO Make it possible to change exit loop, maybe with a GameHasEndedMessage?
             }
         }
     }
