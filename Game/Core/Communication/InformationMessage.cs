@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Game.Core.Communication
 {
+    /// <summary>
+    /// Simple text message
+    /// </summary>
     public class InformationMessage : IMessage
     {
         public string Content { get; private set; }
-
-        public IList<Choice> Choices { get; private set; }
-
-        public bool HasChoices { get; private set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="InformationMessage"/> class with 
@@ -25,8 +23,6 @@ namespace Game.Core.Communication
             }
 
             Content = content;
-            Choices = null;
-            HasChoices = false;
         }
 
         public string GetMessageString()
