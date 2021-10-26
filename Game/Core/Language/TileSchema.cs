@@ -1,6 +1,7 @@
 ﻿using Game.Core.Board;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace Game.Core.Language
 {
@@ -38,6 +39,50 @@ namespace Game.Core.Language
         {
             letter = char.ToLower(letter);
             return Tiles.Any((tile) => tile.Letter == letter);
+        }
+
+        /// <summary>
+        /// Get <see cref="TileSchema"/> as a string of tiles in alphabetical order, grouped by <see cref="Tile.Points"/>.
+        /// </summary>
+        /// <returns><see cref="TileSchema"/> as a string of tiles in alphabetical order, grouped by <see cref="Tile.Points"/></returns>
+        public string GetAsStringGroupedByPoints()
+        {
+            var groups = Tiles.GroupBy(tile => tile.Points)
+                              .OrderBy(group => group.Key);
+
+            var sb = new StringBuilder();
+            sb.AppendLine("Avaliable letters to choose from:");
+            foreach (var group in groups)
+            {
+                var points = group.Key;
+                var orderedGroup = group.OrderBy(tile => tile.Letter);
+
+                sb.Append($"  {points} {(points < 2 ? "point" : "points")}:");
+                foreach (var item in group)
+                {
+                    sb.Append($" {char.ToUpper(item.Letter)}");
+                }
+                sb.Append('\n');
+            }
+            return sb.ToString();
+        }
+
+        /// <summary>
+        /// Get <see cref="TileSchema"/> as a string of tiles in alphabetical order without the <see cref="Tile.Points"/>.
+        /// </summary>
+        /// <returns><see cref="TileSchema"/> as a string of tiles in alphabetical order without the <see cref="Tile.Points"/>.</returns>
+        public string GetAsStringWithOnlyLetters()
+        {
+            var orderedTiles = Tiles.OrderBy(tile => tile.Letter);
+
+            var sb = new StringBuilder();
+            sb.AppendLine("Avaliable letters to choose from:");
+            foreach (var tile in orderedTiles)
+            {
+                sb.Append($" {char.ToUpper(tile.Letter)}");
+            }
+
+            return sb.ToString();
         }
     }
 }
