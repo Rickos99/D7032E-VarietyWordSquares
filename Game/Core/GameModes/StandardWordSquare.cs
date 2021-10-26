@@ -16,7 +16,7 @@ namespace Game.Core.GameModes
             IInputOutput io,
             Dictionary dictionary,
             TileSchema tileSchema,
-            Host networkHost,
+            NetworkHost networkHost,
             int bots,
             int players,
             int rows,

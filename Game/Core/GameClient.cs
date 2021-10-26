@@ -10,12 +10,12 @@ namespace Game.Core
     class GameClient
     {
         private readonly IInputOutput _inputOutput;
-        private readonly Client _client;
+        private readonly NetworkClient _client;
 
         public GameClient(IInputOutput inputOutput, IPEndPoint endPoint)
         {
             _inputOutput = inputOutput;
-            _client = new Client(endPoint);
+            _client = new NetworkClient(endPoint);
         }
 
         public void Start()

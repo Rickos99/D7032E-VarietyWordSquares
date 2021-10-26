@@ -9,7 +9,7 @@ using System.Text.Json;
 
 namespace Game.Core.Network
 {
-    public class Host
+    public class NetworkHost
     {
         public int Port { get; private set; }
         public IPAddress IpAddress { get; private set; }
@@ -24,7 +24,7 @@ namespace Game.Core.Network
         ///  number.
         /// </summary>
         /// <param name="port">Port of the host</param>
-        public Host(int port) : this("127.0.0.1", port) { }
+        public NetworkHost(int port) : this("127.0.0.1", port) { }
 
         /// <summary>
         ///  Initializes a new instance of the  <see cref="Host"/> class that listens for 
@@ -32,7 +32,7 @@ namespace Game.Core.Network
         /// </summary>
         /// <param name="ipAddress">Local IP-address to allow connections to</param>
         /// <param name="port">Port of the host</param>
-        public Host(string ipAddress, int port)
+        public NetworkHost(string ipAddress, int port)
         {
             IpAddress = IPAddress.Parse(ipAddress);
             Port = port;

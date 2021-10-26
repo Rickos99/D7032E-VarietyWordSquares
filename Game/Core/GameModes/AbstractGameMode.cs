@@ -19,7 +19,7 @@ namespace Game.Core.GameModes
     abstract class AbstractGameMode
     {
         protected TileSchema _tileSchema;
-        protected Host _netHost;
+        protected NetworkHost _netHost;
         protected PlayerAndBoardCollection _playerAndBoardCollection = new();
         protected Random _rng;
 
@@ -36,7 +36,7 @@ namespace Game.Core.GameModes
         /// <param name="randomizationSeed">Seed to use in part where randomization is used. Set to null to use a random seed.</param>
         public AbstractGameMode(
             TileSchema tileSchema,
-            Host networkHost,
+            NetworkHost networkHost,
             int bots,
             int players,
             int? randomizationSeed)

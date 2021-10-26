@@ -49,7 +49,6 @@ namespace Game.UI.Console.Menus
 
         private static void PlayScrabbleSquares()
         {
-            System.Console.WriteLine("Not supported yet");
             var gameConsole = new GameConsole();
             var dictionary = LoadDictionary();
             var tileSchema = LoadTileSchema();
@@ -88,9 +87,9 @@ namespace Game.UI.Console.Menus
             return new TileSchemaLoader().LoadFromFile(Path.Combine(Settings.TileSchemaFolder, Settings.TileSchemaFile));
         }
 
-        private static Host CreateNetworkHost()
+        private static NetworkHost CreateNetworkHost()
         {
-            return new Host(5500);
+            return new NetworkHost(5500);
         }
     }
 }

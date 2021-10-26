@@ -26,16 +26,16 @@ namespace Game.Core.Network.Tests
             }
         }
 
-        private Host host;
-        private Client client;
+        private NetworkHost host;
+        private NetworkClient client;
         private TcpClient hostClient;
 
         [TestInitialize()]
         public void Startup()
         {
             int port = 5500;
-            host = new Host(port);
-            client = new Client(port);
+            host = new NetworkHost(port);
+            client = new NetworkClient(port);
 
             host.Start();
             var connectionTask = Task.Run(() => host.WaitForIncomingConnection());
@@ -62,14 +62,14 @@ namespace Game.Core.Network.Tests
         {
             IMessage recievedMessage;
 
-            // Message: Host -> Client
-            Host.SendMessageToClient(message, hostClient);
+            // Message: NetworkHost -> NetworkClient
+            NetworkHost.SendMessageToClient(message, hostClient);
             recievedMessage = client.ReadMessage();
             recievedMessage.Should().BeEquivalentTo(message);
 
-            // Message: Client -> Host
+            // Message: NetworkClient -> NetworkHost
             client.SendMessage(message);
-            recievedMessage = Host.ReadMessageFromClient(hostClient);
+            recievedMessage = NetworkHost.ReadMessageFromClient(hostClient);
             recievedMessage.Should().BeEquivalentTo(message);
         }
 
@@ -81,29 +81,29 @@ namespace Game.Core.Network.Tests
             IMessage recievedMessage;
             int messagesToSend = 3;
 
-            // Send messages: Host -> Client
+            // Send messages: NetworkHost -> NetworkClient
             for (int i = 0; i < messagesToSend; i++)
             {
-                Host.SendMessageToClient(message, hostClient);
+                NetworkHost.SendMessageToClient(message, hostClient);
             }
 
-            // Recieve messages: Client
+            // Recieve messages: NetworkClient
             for (int i = 0; i < messagesToSend; i++)
             {
                 recievedMessage = client.ReadMessage();
                 recievedMessage.Should().BeEquivalentTo(message);
             }
 
-            // Send messages: Client -> Host
+            // Send messages: NetworkClient -> NetworkHost
             for (int i = 0; i < messagesToSend; i++)
             {
                 client.SendMessage(message);
             }
 
-            // Recieve messages: Host
+            // Recieve messages: NetworkHost
             for (int i = 0; i < messagesToSend; i++)
             {
-                recievedMessage = Host.ReadMessageFromClient(hostClient);
+                recievedMessage = NetworkHost.ReadMessageFromClient(hostClient);
                 recievedMessage.Should().BeEquivalentTo(message);
             }
         }

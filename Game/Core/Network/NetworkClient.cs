@@ -7,7 +7,7 @@ using System.Text.Json;
 
 namespace Game.Core.Network
 {
-    public class Client
+    public class NetworkClient
     {
         public int Port { get; private set; }
         public IPAddress IpAddress { get; private set; }
@@ -20,7 +20,7 @@ namespace Game.Core.Network
         /// IP-address 127.0.0.1 and the specified port.
         /// </summary>
         /// <param name="port">Port to connect to</param>
-        public Client(int port) : this("127.0.0.1", port) { }
+        public NetworkClient(int port) : this("127.0.0.1", port) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Client"/> class and with a 
@@ -28,7 +28,7 @@ namespace Game.Core.Network
         /// </summary>
         /// <param name="ipAddress">IP-address to connect to</param>
         /// <param name="port">Port to connect to</param>
-        public Client(string ipAddress, int port) {
+        public NetworkClient(string ipAddress, int port) {
             IpAddress = IPAddress.Parse(ipAddress);
             Port = port;
             tcpClient = new TcpClient();
@@ -39,7 +39,7 @@ namespace Game.Core.Network
         /// specified IP-address and port.
         /// </summary>
         /// <param name="endPoint">Endpoint to connect to</param>
-        public Client(IPEndPoint endPoint)
+        public NetworkClient(IPEndPoint endPoint)
         {
             IpAddress = endPoint.Address;
             Port = endPoint.Port;

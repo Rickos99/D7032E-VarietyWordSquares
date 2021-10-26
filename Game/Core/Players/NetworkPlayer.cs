@@ -22,13 +22,13 @@ namespace Game.Core.Players
         public override string AskQuestion(IQuestion question)
         {
             SendMessage(question);
-            var response = Host.ReadMessageFromClient(_client);
+            var response = NetworkHost.ReadMessageFromClient(_client);
             return response.Content;
         }
 
         public override void SendMessage(IMessage message)
         {
-            Host.SendMessageToClient(message, _client);
+            NetworkHost.SendMessageToClient(message, _client);
         }
     }
 }

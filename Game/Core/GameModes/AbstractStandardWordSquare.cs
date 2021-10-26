@@ -18,7 +18,7 @@ namespace Game.Core.GameModes
         public AbstractStandardWordSquare(
             IInputOutput io,
             TileSchema tileSchema,
-            Host networkHost,
+            NetworkHost networkHost,
             IGameRules gameRules,
             int bots,
             int players,
