@@ -43,6 +43,7 @@ namespace Game.Core.GameModes
             while (!_gameRules.BoardHasReachedGameOver(_playerAndBoardCollection.Boards.First()))
             {
                 var randomPlayer = PickRandomPlayer();
+                SendLetterBeingPickedMessageToAllPlayers(randomPlayer);
                 var tile = LetPlayerPickTile(randomPlayer);
                 LetAllPlayersPlaceTileOnBoard(tile);
             }
