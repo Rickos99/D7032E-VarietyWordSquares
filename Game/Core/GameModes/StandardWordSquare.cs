@@ -1,9 +1,11 @@
 ﻿using Game.Core.Board;
 using Game.Core.Board.Builders;
+using Game.Core.Communication;
 using Game.Core.GameModes.Rules;
 using Game.Core.IO;
 using Game.Core.Language;
 using Game.Core.Network;
+using Game.Core.Players;
 
 namespace Game.Core.GameModes
 {
@@ -35,6 +37,12 @@ namespace Game.Core.GameModes
                 .UseUniformLayout(SquareType.Regular)
                 .HideTilePoints()
                 .Build();
+        }
+
+        protected override Tile LetPlayerPickTile(PlayerBase player)
+        {
+            player.SendMessage(new InformationMessage(_tileSchema.GetAsStringWithOnlyLetters()));
+            return base.LetPlayerPickTile(player);
         }
     }
 }
