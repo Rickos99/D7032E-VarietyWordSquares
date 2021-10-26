@@ -171,6 +171,23 @@ namespace Game.Core.GameModes
         }
 
         /// <summary>
+        /// Send an <see cref="InformationMessage"/> with content "Waiting for a 
+        /// letter to be picked..." to all players. One player will not recieve 
+        /// the message and an idea can be to let that user be the player 
+        /// which is picking the letter.
+        /// </summary>
+        /// <param name="playerToExclude">The player to not send the message to.</param>
+        protected virtual void SendLetterBeingPickedMessageToAllPlayers(PlayerBase playerToExclude)
+        {
+            foreach (var player in _playerAndBoardCollection.Players)
+            {
+                if (player == playerToExclude) continue;
+
+                player.SendMessage(new InformationMessage("Waiting for a letter to be picked..."));
+            }
+        }
+
+        /// <summary>
         /// Request the specified player to pick a tile. The tile returned, exists in the <see cref="_tileSchema"/>
         /// </summary>
         /// <param name="player">The player to request a tile from.</param>
