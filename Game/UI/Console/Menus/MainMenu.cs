@@ -50,6 +50,22 @@ namespace Game.UI.Console.Menus
         private static void PlayScrabbleSquares()
         {
             System.Console.WriteLine("Not supported yet");
+            var gameConsole = new GameConsole();
+            var dictionary = LoadDictionary();
+            var tileSchema = LoadTileSchema();
+            var networkHost = CreateNetworkHost();
+
+            var gameInstance = new ScrabbleWordSquare(
+                gameConsole,
+                dictionary,
+                tileSchema,
+                networkHost,
+                (int)Settings.NumberOfBots,
+                (int)Settings.NumberOfPlayers,
+                (int)Settings.BoardRowSize,
+                (int)Settings.BoardColumnSize
+            );
+            gameInstance.Run();
         }
 
         private static void ShowSettingsMenu()
