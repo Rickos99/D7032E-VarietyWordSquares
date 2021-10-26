@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using Game.Core.Exceptions;
+using System.IO;
 
 namespace Game.Core.Network
 {
@@ -22,7 +23,7 @@ namespace Game.Core.Network
                 int rawByte = stream.ReadByte();
                 if (rawByte == -1)
                 {
-                    throw new IOException("Stream ended before JSON sequence ended");
+                    throw new ConnectionClosedException("Stream ended before JSON sequence ended");
                 }
 
                 byte byteRead = (byte)rawByte;
