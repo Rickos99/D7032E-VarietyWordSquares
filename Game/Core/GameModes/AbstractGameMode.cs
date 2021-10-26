@@ -219,7 +219,7 @@ namespace Game.Core.GameModes
             var board = _playerAndBoardCollection[player];
             while (!board.LocationIsPresentOnBoard(location) || !board.LocationIsEmpty(location))
             {
-                player.SendMessage(new InformationMessage($"The placement of {tile.Letter} is invalid, please place it somewhere else."));
+                player.SendMessage(new InformationMessage($"The placement of {char.ToUpper(tile.Letter)} is invalid, please place it somewhere else."));
                 location = player.PickTileLocation(tile);
             }
 

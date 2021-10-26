@@ -24,7 +24,7 @@ namespace Game.Core.Communication
         {
             Choices = null;
             HasChoices = false;
-            Content = $"Place {tile.Letter} (syntax: row column. Example \"A0\")";
+            Content = $"Place {char.ToUpper(tile.Letter)} (syntax: row column. Example \"A0\")";
         }
 
         public string GetMessageString()
