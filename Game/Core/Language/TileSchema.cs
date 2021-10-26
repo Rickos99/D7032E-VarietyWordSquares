@@ -1,7 +1,5 @@
 ﻿using Game.Core.Board;
-using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 
 namespace Game.Core.Language
@@ -40,46 +38,6 @@ namespace Game.Core.Language
         {
             letter = char.ToLower(letter);
             return Tiles.Any((tile) => tile.Letter == letter);
-        }
-
-        /// <summary>
-        /// Load dictionary from file and replace current dictionary
-        /// </summary>
-        /// <param name="filepath">Path to file</param>
-        public static TileSchema LoadFromFile(string filepath)
-        {
-            IEnumerable<string> lines;
-            List<Tile> tiles = new List<Tile>();
-            try
-            {
-                lines = File.ReadLines(filepath);
-                foreach (var line in lines)
-                {
-                    if (string.IsNullOrEmpty(line)) continue;
-                    tiles.Add(GetTileFromString(line));
-                }
-            }
-            catch (Exception e)
-            {
-                if (e is IndexOutOfRangeException ||
-                   e is FormatException)
-                {
-                    throw new FileLoadException("Invalid value format in tileschema file.", filepath);
-                }
-
-                throw new FileLoadException("The specified tileschema could not be loaded.", filepath);
-            }
-
-            return new TileSchema(tiles);
-        }
-
-        private static Tile GetTileFromString(string str)
-        {
-            string[] stringParts = str.Split('=', 2);
-            char letter = char.ToLower(stringParts[0][0]);
-            int points = int.Parse(stringParts[1]);
-
-            return new Tile(letter, points);
         }
     }
 }

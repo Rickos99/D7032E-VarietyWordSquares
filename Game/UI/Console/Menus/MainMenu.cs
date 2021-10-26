@@ -69,7 +69,7 @@ namespace Game.UI.Console.Menus
 
         private static TileSchema LoadTileSchema()
         {
-            return TileSchema.LoadFromFile(Path.Combine(Settings.TileSchemaFolder, Settings.TileSchemaFile));
+            return new TileSchemaLoader().LoadFromFile(Path.Combine(Settings.TileSchemaFolder, Settings.TileSchemaFile));
         }
 
         private static Host CreateNetworkHost()

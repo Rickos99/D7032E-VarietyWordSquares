@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using Game.Core.Board;
 using Game.Core.Language;
+using Game.Core.Resources;
 using Game.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace Game.Core.Resources.Tests
         [TestMethod]
         public void GetAllTilesTest()
         {
-            var tileSchema = TileSchema.LoadFromFile(_tileschemaPath);
+            var tileSchema = new TileSchemaLoader().LoadFromFile(_tileschemaPath);
             var actual = tileSchema.Tiles;
             var expected = new List<Tile>()
             {
@@ -31,7 +32,7 @@ namespace Game.Core.Resources.Tests
         [TestMethod]
         public void LoadFromFileTest()
         {
-            var tileSchema = TileSchema.LoadFromFile(_tileschemaPath);
+            var tileSchema = new TileSchemaLoader().LoadFromFile(_tileschemaPath);
 
             tileSchema.NumberOfTiles.Should().Be(3);
             tileSchema.TileExist('E').Should().BeTrue();
@@ -42,14 +43,14 @@ namespace Game.Core.Resources.Tests
         [TestMethod]
         public void LoadFromFileTest_ShouldThrowException_WrongFormat()
         {
-            void loadFromFile() => _ = TileSchema.LoadFromFile(_incorrecttileschemaPath);
+            void loadFromFile() => _ = new TileSchemaLoader().LoadFromFile(_incorrecttileschemaPath);
             Assert.ThrowsException<FileLoadException>(loadFromFile);
         }
 
         [TestMethod]
         public void LoadFromFileTest_ShouldThrowException_NonExistingFile()
         {
-            void loadFromFile() => _ = TileSchema.LoadFromFile(_tileschemaPath + ".error");
+            void loadFromFile() => _ = new TileSchemaLoader().LoadFromFile(_tileschemaPath + ".error");
             Assert.ThrowsException<FileLoadException>(loadFromFile);
         }
     }
