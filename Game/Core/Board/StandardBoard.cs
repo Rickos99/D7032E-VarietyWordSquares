@@ -126,6 +126,15 @@ namespace Game.Core.Board
         }
 
         /// <summary>
+        /// Create a deep copy of this board.
+        /// </summary>
+        /// <returns>A deep copy of this board.</returns>
+        public StandardBoard Copy()
+        {
+            return new StandardBoard(_board.DeepCopy(), _displayPointsOnBoard);
+        }
+
+        /// <summary>
         /// Get current board as a pretty string
         /// </summary>
         /// <remarks>

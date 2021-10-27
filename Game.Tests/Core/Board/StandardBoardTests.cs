@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Game.Core.Board;
+using Game.Tests.Core.Board.Boards;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,35 +34,24 @@ namespace Game.Core.Board.Tests
             }
         }
 
-        private Square[,] _predefinedEmptyBoard4Squares
-        {
-            get
-            {
-                return new Square[,] {
-                    { new(SquareType.Regular), new(SquareType.Regular)},
-                    { new(SquareType.Regular), new(SquareType.Regular)},
-                };
-            }
-        }
-
         [TestMethod]
         public void BoardIsFilledTest_WhenBoardIsEmpty()
         {
-            var board = new StandardBoard(_predefinedEmptyBoard4Squares, default);
+            var board = new StandardBoard(PredefinedBoardLayouts.Squares_AllRegular_2x2_Empty, default);
             board.IsFilled().Should().BeFalse();
         }
 
         [TestMethod]
         public void BoardIsFilledTest_WhenBoardIsFilled()
         {
-            var board = new StandardBoard(_predefinedBoard9Squares, default);
+            var board = new StandardBoard(PredefinedBoardLayouts.Squares_AllRegular_3x3_Filled, default);
             board.IsFilled().Should().BeTrue();
         }
 
         [TestMethod]
         public void GetAllEmptyLocationsTest()
         {
-            var board = new StandardBoard(_predefinedEmptyBoard4Squares, default);
+            var board = new StandardBoard(PredefinedBoardLayouts.Squares_AllRegular_2x2_Empty, default);
             board.InsertTileAt(new BoardLocation(0, 0), new Tile('a', 1));
             board.InsertTileAt(new BoardLocation(0, 1), new Tile('b', 1));
 
@@ -106,6 +96,20 @@ namespace Game.Core.Board.Tests
         [TestMethod]
         public void InsertLetterAtTest()
         {
+        }
+
+        [TestMethod()]
+        public void CopyTest()
+        {
+            var board = new StandardBoard(PredefinedBoardLayouts.Squares_AllRegular_3x3_Filled, false);
+            var boardCopy = board.Copy();
+
+            boardCopy.Should().NotBeSameAs(board);
+            boardCopy.GetAllSquareSequences().Should().BeEquivalentTo(board.GetAllSquareSequences());
+
+            boardCopy.InsertTileAt(new BoardLocation(0, 0), new('Z', 1));
+
+            boardCopy.GetAllSquareSequences().Should().NotBeEquivalentTo(board.GetAllSquareSequences());
         }
     }
 }
