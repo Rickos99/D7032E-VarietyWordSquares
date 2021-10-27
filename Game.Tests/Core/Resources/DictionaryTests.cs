@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using Game.Core.Board;
 using Game.Core.Language;
 using Game.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -31,6 +32,46 @@ namespace Game.Core.Resources.Tests
             }
         }
 
+        static object[] SquareSequenceExistTestData
+        {
+            get
+            {
+                return new[]
+                {
+                    new object[]{ new List<Square>() { 
+                        new(default, new('l', 1)),
+                        new(default, new('o', 1)),
+                        new(default, new('r', 1)),
+                        new(default, new('e', 1)),
+                        new(default, new('m', 1)),
+                    }, true },
+
+                    new object[]{ new List<Square>() {
+                        new(default, new('L', 1)),
+                        new(default, new('O', 1)),
+                        new(default, new('R', 1)),
+                        new(default, new('E', 1)),
+                        new(default, new('M', 1)),
+                    }, true },
+
+                    new object[]{ new List<Square>() {
+                        new(default, new('o', 1)),
+                        new(default, new('r', 1)),
+                        new(default, new('e', 1)),
+                        new(default, new('m', 1)),
+                    }, false },
+
+                    new object[]{ new List<Square>() {
+                        new(default),
+                        new(default, new('O', 1)),
+                        new(default, new('R', 1)),
+                        new(default, new('E', 1)),
+                        new(default, new('M', 1)),
+                    }, false },
+                };
+            }
+        }
+
         [TestMethod]
         public void SetDictionaryTest()
         {
@@ -38,6 +79,13 @@ namespace Game.Core.Resources.Tests
             dictionary.WordCount.Should().Be(TestDictionary.Count);
         }
 
+        [DataTestMethod]
+        [DynamicData(nameof(SquareSequenceExistTestData))]
+        public void SquareSequenceExistTest(List<Square> squareSequence, bool exists)
+        {
+            var dictionary = new Dictionary("Test", TestDictionary);
+            dictionary.ContainsSquareSequence(squareSequence).Should().Be(exists);
+        }
 
         [DataTestMethod]
         [DynamicData(nameof(WordExistTestData))]

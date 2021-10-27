@@ -19,7 +19,11 @@ namespace Game.Core.Board.DataStructures
 
             foreach (var square in squares)
             {
+                if (square.IsEmpty)
+                    break;
+
                 currentNode = currentNode.FindChildNode(square.Tile.Letter);
+                
                 if (currentNode == null)
                     break;
                 result = currentNode;
