@@ -53,14 +53,15 @@ namespace Game.Core.Players
         /// Prompt player to pick a location for specified tile
         /// </summary>
         /// <param name="tile">Tile to pick a location for</param>
+        /// <param name="showTilePoints">Indicates whether to print point value of tile. Set to <c>true</c> if points should be shown, otherwise false.</param>
         /// <returns>The location that was picked</returns>
-        public virtual BoardLocation PickTileLocation(Tile tile)
+        public virtual BoardLocation PickTileLocation(Tile tile, bool showTilePoints)
         {
             string input = string.Empty;
             bool validInput = false;
             while (!validInput)
             {
-                input = AskQuestion(new PickTileLocationQuestion(tile));
+                input = AskQuestion(new PickTileLocationQuestion(tile, showTilePoints));
                 validInput = BoardLocationTranslator.LocationStringIsValid(input);
                 if (!validInput)
                 {

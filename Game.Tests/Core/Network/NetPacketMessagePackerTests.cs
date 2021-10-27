@@ -25,7 +25,7 @@ namespace Game.Core.Network.Tests
                         })},
                     new object[]{new GameHasEndedMessage()},
                     new object[]{new PickATileQuestion()},
-                    new object[]{new PickTileLocationQuestion(new Tile('A', 1))}
+                    new object[]{new PickTileLocationQuestion(new Tile('A', 1), default)}
                 };
             }
         }

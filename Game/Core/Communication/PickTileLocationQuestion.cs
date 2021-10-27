@@ -4,6 +4,9 @@ using System.Text.Json.Serialization;
 
 namespace Game.Core.Communication
 {
+    /// <summary>
+    /// A question which prompts a player to pick the location for a tile.
+    /// </summary>
     public class PickTileLocationQuestion : IQuestion
     {
         public IList<Choice> Choices { get; private set; }
@@ -20,11 +23,19 @@ namespace Game.Core.Communication
             Content = content;
         }
 
-        public PickTileLocationQuestion(Tile tile)
+        /// <summary>
+        /// Initialize a new instance of the <see cref="PickTileLocationQuestion"/> class
+        /// </summary>
+        /// <param name="tile"></param>
+        /// <param name="showTilePoints">Indicates whether to print point value of tile. Set to <c>true</c> if points should be shown, otherwise false.</param>
+        public PickTileLocationQuestion(Tile tile, bool showTilePoints)
         {
             Choices = null;
             HasChoices = false;
-            Content = $"Place {char.ToUpper(tile.Letter)} (syntax: row column. Example \"A0\")";
+
+            var tilePointsString = showTilePoints ? $" [{tile.Points}]" : "";
+            var letter = char.ToUpper(tile.Letter);
+            Content = $"Place {letter}{tilePointsString} (syntax: row column. Example \"A0\")";
         }
 
         public string GetMessageString()

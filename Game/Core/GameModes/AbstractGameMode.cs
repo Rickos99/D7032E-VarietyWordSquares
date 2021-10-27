@@ -26,6 +26,8 @@ namespace Game.Core.GameModes
         protected readonly int _numberOfbots;
         protected readonly int _numberOfPlayers;
 
+        protected readonly bool _showTilePoints;
+
         /// <summary>
         /// Initialize a new instance of the <see cref="AbstractGameMode"/>
         /// </summary>
@@ -33,18 +35,21 @@ namespace Game.Core.GameModes
         /// <param name="networkHost">Network to use when communicating with network players.</param>
         /// <param name="bots">Number of bots to use.</param>
         /// <param name="players">Number of players to allow in game, exluding the host.</param>
+        /// <param name="showTilePoints">Indicates whether to print point value of tile. Set to <c>true</c> if points should be shown, otherwise false.</param>
         /// <param name="randomizationSeed">Seed to use in part where randomization is used. Set to null to use a random seed.</param>
         public AbstractGameMode(
             TileSchema tileSchema,
             NetworkHost networkHost,
             int bots,
             int players,
+            bool showTilePoints,
             int? randomizationSeed)
         {
             _tileSchema = tileSchema ?? throw new ArgumentNullException(nameof(tileSchema));
             _netHost = networkHost ?? throw new ArgumentNullException(nameof(networkHost));
             _numberOfbots = bots;
             _numberOfPlayers = players;
+            _showTilePoints = showTilePoints;
             _rng = randomizationSeed is null ? new Random() : new Random((int)randomizationSeed);
         }
 
@@ -188,12 +193,16 @@ namespace Game.Core.GameModes
         }
 
         /// <summary>
-        /// Request the specified player to pick a tile. The tile returned, exists in the <see cref="_tileSchema"/>
+        /// Request the specified player to pick a tile. Before the player gets to pick a tile, the current tileschema (<see cref="_tileSchema"/>) is shown. The tile returned, exists in the <see cref="_tileSchema"/>
         /// </summary>
         /// <param name="player">The player to request a tile from.</param>
         /// <returns>The picked tile</returns>
         protected virtual Tile LetPlayerPickTile(PlayerBase player)
         {
+            var tileSchemaString = _showTilePoints ? 
+                _tileSchema.GetAsStringGroupedByPoints() : _tileSchema.GetAsStringWithOnlyLetters();
+
+            player.SendMessage(new InformationMessage(tileSchemaString));
             return player.PickTile(_tileSchema);
         }
 
@@ -215,12 +224,12 @@ namespace Game.Core.GameModes
         /// <param name="displayBoardAfterPlacement">Indicates whether to display the player's board after a tile placement</param>
         protected virtual void LetPlayerPlaceTileOnBoard(PlayerBase player, Tile tile, bool displayBoardAfterPlacement)
         {
-            var location = player.PickTileLocation(tile);
+            var location = player.PickTileLocation(tile, _showTilePoints);
             var board = _playerAndBoardCollection[player];
             while (!board.LocationIsPresentOnBoard(location) || !board.LocationIsEmpty(location))
             {
                 player.SendMessage(new InformationMessage($"The placement of {char.ToUpper(tile.Letter)} is invalid, please place it somewhere else."));
-                location = player.PickTileLocation(tile);
+                location = player.PickTileLocation(tile, _showTilePoints);
             }
 
             board.InsertTileAt(location, tile);
@@ -232,7 +241,7 @@ namespace Game.Core.GameModes
 
             if (_playerAndBoardCollection.Players.Count > 1)
             {
-                player.SendMessage(new InformationMessage("Waiting for opponents"));
+                player.SendMessage(new InformationMessage("Waiting for opponents..."));
             }
         }
 

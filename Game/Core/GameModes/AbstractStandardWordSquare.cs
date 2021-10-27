@@ -22,8 +22,9 @@ namespace Game.Core.GameModes
             IGameRules gameRules,
             int bots,
             int players,
+            bool showTilePoints,
             int? randomizationSeed = null)
-            : base(tileSchema, networkHost, bots, players, randomizationSeed)
+            : base(tileSchema, networkHost, bots, players, showTilePoints, randomizationSeed)
         {
             _io = io;
             _gameRules = gameRules;

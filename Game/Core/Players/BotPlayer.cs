@@ -40,7 +40,7 @@ namespace Game.Core.Players
 
         public override void SendMessage(IMessage message) { }
 
-        public override BoardLocation PickTileLocation(Tile tile)
+        public override BoardLocation PickTileLocation(Tile tile, bool showTilePoints)
         {
             var emptyLocations = _board.GetAllEmptyLocations().ToList();
             var locationIndex = _rng.Next(emptyLocations.Count - 1);
