@@ -36,7 +36,7 @@ namespace Game.UI.Console.Menus
                     ),
                 new MenuChoice(
                     "4",
-                    () => $"Number of players: {Settings.NumberOfPlayers}",
+                    () => $"Number of remote players: {Settings.NumberOfRemotePlayers}",
                     ChangeNumberOfPlayers
                     ),
                 new MenuChoice(
@@ -107,7 +107,7 @@ namespace Game.UI.Console.Menus
                 return;
             }
 
-            Settings.NumberOfPlayers = players;
+            Settings.NumberOfRemotePlayers = players;
         }
 
         private static void ChangeNumberOfBots()

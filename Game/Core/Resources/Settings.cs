@@ -19,10 +19,10 @@ namespace Game.Core.Resources
             set => SetSetting("Board.Size.Columns", value.ToString());
         }
 
-        public static uint NumberOfPlayers
+        public static uint NumberOfRemotePlayers
         {
-            get => uint.Parse(GetSetting("Player.Humans"));
-            set => SetSetting("Player.Humans", value.ToString());
+            get => uint.Parse(GetSetting("Player.Remote"));
+            set => SetSetting("Player.Remote", value.ToString());
         }
 
         public static uint NumberOfBots

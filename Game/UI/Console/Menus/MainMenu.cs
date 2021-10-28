@@ -40,7 +40,7 @@ namespace Game.UI.Console.Menus
                 tileSchema,
                 networkHost,
                 (int)Settings.NumberOfBots,
-                (int)Settings.NumberOfPlayers,
+                (int)Settings.NumberOfRemotePlayers,
                 (int)Settings.BoardRowSize,
                 (int)Settings.BoardColumnSize
             );
@@ -60,7 +60,7 @@ namespace Game.UI.Console.Menus
                 tileSchema,
                 networkHost,
                 (int)Settings.NumberOfBots,
-                (int)Settings.NumberOfPlayers,
+                (int)Settings.NumberOfRemotePlayers,
                 (int)Settings.BoardRowSize,
                 (int)Settings.BoardColumnSize
             );
@@ -80,7 +80,7 @@ namespace Game.UI.Console.Menus
                 tileSchema,
                 networkHost,
                 (int)Settings.NumberOfBots,
-                (int)Settings.NumberOfPlayers
+                (int)Settings.NumberOfRemotePlayers
             );
             gameInstance.Run();
         }
@@ -98,7 +98,7 @@ namespace Game.UI.Console.Menus
                 tileSchema,
                 networkHost,
                 (int)Settings.NumberOfBots,
-                (int)Settings.NumberOfPlayers
+                (int)Settings.NumberOfRemotePlayers
             );
             gameInstance.Run();
         }
