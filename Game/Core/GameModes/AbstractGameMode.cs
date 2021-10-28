@@ -14,12 +14,16 @@ using System.Threading.Tasks;
 namespace Game.Core.GameModes
 {
     /// <summary>
-    /// A abstract game mode with commonly used methods used in a gamemode.
+    /// An abstract game mode with commonly used methods used in a gamemode.
     /// </summary>
     abstract class AbstractGameMode
     {
         protected TileSchema _tileSchema;
         protected NetworkHost _netHost;
+
+        /// <summary>
+        /// Collection of players and boards. The first player in collection is assumed to be the host of current game.
+        /// </summary>
         protected PlayerAndBoardCollection _playerAndBoardCollection = new();
         protected Random _rng;
 
@@ -123,10 +127,18 @@ namespace Game.Core.GameModes
         /// </summary>
         protected virtual void WaitForNetworkPlayers()
         {
+            if (_numberOfPlayers > 0)
+            {
+                var waitingForPlayersMessage = new InformationMessage("Waiting for players...");
+                _playerAndBoardCollection.Players.FirstOrDefault()?.SendMessage(waitingForPlayersMessage);
+            }
+
             for (int i = 0; i < _numberOfPlayers; i++)
             {
                 var board = BuildBoard();
                 var netPlayer = WaitForNetworkPlayer();
+                netPlayer.SendMessage(new InformationMessage($"You connected to the server as player {netPlayer.ID}"));
+                _playerAndBoardCollection.Players.FirstOrDefault()?.SendMessage(new InformationMessage($"Player {netPlayer.ID} connected."));
                 _playerAndBoardCollection.Add(netPlayer, board);
             }
         }
@@ -199,7 +211,7 @@ namespace Game.Core.GameModes
         /// <returns>The picked tile</returns>
         protected virtual Tile LetPlayerPickTile(PlayerBase player)
         {
-            var tileSchemaString = _showTilePoints ? 
+            var tileSchemaString = _showTilePoints ?
                 _tileSchema.GetAsStringGroupedByPoints() : _tileSchema.GetAsStringWithOnlyLetters();
 
             player.SendMessage(new InformationMessage(tileSchemaString));
