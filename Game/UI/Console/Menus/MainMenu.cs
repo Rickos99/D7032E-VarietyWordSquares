@@ -1,6 +1,4 @@
-﻿using Game.Core.Board;
-using Game.Core.GameModes;
-using Game.Core.GameModes.Rules;
+﻿using Game.Core.GameModes;
 using Game.Core.IO;
 using Game.Core.Language;
 using Game.Core.Network;
@@ -19,8 +17,10 @@ namespace Game.UI.Console.Menus
             var menuChoices = new List<MenuChoice>()
             {
                 new MenuChoice("1", "Play standard Wordsquares", PlayStandardWordSquares),
-                new MenuChoice("2", "Play ScrabbleSquares", PlayScrabbleSquares),
-                new MenuChoice("3", "Settings", ShowSettingsMenu),
+                new MenuChoice("2", "Play ScrabbleSquares on standard board", PlayScrabbleSquares),
+                new MenuChoice("3", "Play scrabbleSquares on 5x5 predefined ScrabbleBoard", PlayScrabbleSquares_5x5_PredefinedBoard),
+                new MenuChoice("4", "Play scrabbleSuqares on 5x5 randomised ScrabbleBoard", PlayScrabbleSquares_5x5_RandomBoard),
+                new MenuChoice("s", "Settings", ShowSettingsMenu),
                 new MenuChoice("!", "Exit application", ExitApplication),
             };
 
@@ -63,6 +63,42 @@ namespace Game.UI.Console.Menus
                 (int)Settings.NumberOfPlayers,
                 (int)Settings.BoardRowSize,
                 (int)Settings.BoardColumnSize
+            );
+            gameInstance.Run();
+        }
+
+        private static void PlayScrabbleSquares_5x5_PredefinedBoard()
+        {
+            var gameConsole = new GameConsole();
+            var dictionary = LoadDictionary();
+            var tileSchema = LoadTileSchema();
+            var networkHost = CreateNetworkHost();
+
+            var gameInstance = new ScrabbleWordSquare5x5PredefinedBoard(
+                gameConsole,
+                dictionary,
+                tileSchema,
+                networkHost,
+                (int)Settings.NumberOfBots,
+                (int)Settings.NumberOfPlayers
+            );
+            gameInstance.Run();
+        }
+
+        private static void PlayScrabbleSquares_5x5_RandomBoard()
+        {
+            var gameConsole = new GameConsole();
+            var dictionary = LoadDictionary();
+            var tileSchema = LoadTileSchema();
+            var networkHost = CreateNetworkHost();
+
+            var gameInstance = new ScrabbleWordSquare5x5RandomBoard(
+                gameConsole,
+                dictionary,
+                tileSchema,
+                networkHost,
+                (int)Settings.NumberOfBots,
+                (int)Settings.NumberOfPlayers
             );
             gameInstance.Run();
         }
