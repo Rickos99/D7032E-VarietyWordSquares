@@ -6,6 +6,9 @@ using System.Linq;
 
 namespace Game.Core.GameModes
 {
+    /// <summary>
+    /// A collection of players and their boards, the boards can be unique for each player or shared as one instance.
+    /// </summary>
     class PlayerAndBoardCollection
     {
         /// <summary>
@@ -45,7 +48,8 @@ namespace Game.Core.GameModes
         }
 
         /// <summary>
-        /// Get all players currently stored in the <see cref="PlayerAndBoardCollection"/>
+        /// Get all players currently stored in the <see cref="PlayerAndBoardCollection"/>. 
+        /// The order of players is the same as the order in which they were added.
         /// </summary>
         public List<PlayerBase> Players
         {
