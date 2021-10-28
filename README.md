@@ -2,10 +2,16 @@
 Home exam for course D7032E Software engineering. Tasked with refactoring source code for a Word Square game
 
 # Building
-1. Install the X64 version of [.NET 5.0 (or higher) SDK](https://dotnet.microsoft.com/download/dotnet)
+1. Install the X64 version of [.NET 5.0 (or higher) SDK](https://dotnet.microsoft.com/download/dotnet).
+2. Run `dotnet build`.
 
+# Testing
+1. Perform the steps in section [Building](#building).
+2. Run `dotnet test --no-build` or `dotnet test --no-build --verbosity normal`. 
 
 # Usage
+1. Navigate to `Game/` folder.
+2. Use `dotnet run` to run the project.
 
 # Rules and requirements:
 1. Game participants consists of at least one player and any number of bots.
