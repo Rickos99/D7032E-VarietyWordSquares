@@ -2,6 +2,9 @@
 
 namespace Game.Core.Board
 {
+    /// <summary>
+    /// Used to help with painting parts of board.
+    /// </summary>
     public static class BoardPainter
     {
         private const string COLOR_HEADER_BG = "#2472C8";
@@ -21,11 +24,22 @@ namespace Game.Core.Board
         private const string COLOR_SQUARE_DOUBLE_WORD_TEXT = COLOR_DARK_TEXT;
         private const string COLOR_SQUARE_TRIPPLE_WORD_TEXT = COLOR_DARK_TEXT;
 
+        /// <summary>
+        /// Paint a header with a predefined background and foreground color.
+        /// </summary>
+        /// <param name="text">Text in header.</param>
+        /// <returns>A header with a predifined background and foreground color.</returns>
         public static string PaintHeader(string text)
         {
             return text.Pastel(COLOR_HEADER_TEXT).PastelBg(COLOR_HEADER_BG);
         }
 
+        /// <summary>
+        /// Paint a square with a predefined background and foreground color.
+        /// </summary>
+        /// <param name="text">String to paint.</param>
+        /// <param name="squareType">What square type to base color selection on.</param>
+        /// <returns>A string with a predefined background and foreground color.</returns>
         public static string PaintSquare(string text, SquareType squareType)
         {
             var color = PickColorScheme(squareType);

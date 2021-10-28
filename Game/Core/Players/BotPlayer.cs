@@ -6,6 +6,10 @@ using System.Linq;
 
 namespace Game.Core.Players
 {
+    /// <summary>
+    /// A non-human player. It makes decisions based on a seed and the data
+    /// it has been provided with.
+    /// </summary>
     class BotPlayer : PlayerBase
     {
         private readonly Random _rng;

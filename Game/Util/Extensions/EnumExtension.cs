@@ -4,6 +4,9 @@ using System.Reflection;
 
 namespace Game.Util.Extensions
 {
+    /// <summary>
+    /// Extension methods for Enum
+    /// </summary>
     public static class EnumExtension
     {
         /// <summary>

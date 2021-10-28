@@ -3,6 +3,9 @@ using Game.Core.IO;
 
 namespace Game.Core.Players
 {
+    /// <summary>
+    /// A human player located on the local machine.
+    /// </summary>
     public class LocalPlayer : PlayerBase
     {
         private readonly IInputOutput _inputOutput;

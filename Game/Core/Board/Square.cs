@@ -1,5 +1,8 @@
 ﻿namespace Game.Core.Board
 {
+    /// <summary>
+    /// A square use on a board. It may contain a tile.
+    /// </summary>
     public class Square
     {
         /// <summary>

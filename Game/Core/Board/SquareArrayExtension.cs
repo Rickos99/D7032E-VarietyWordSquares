@@ -1,11 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
 namespace Game.Core.Board
 {
+    /// <summary>
+    /// Extension for a array of type <see cref="Square"/>.
+    /// </summary>
     public static class SquareArrayExtension
     {
+        /// <summary>
+        /// Get all sub sequences from a two dimensional array of <see cref="Square"/>. The subsequences will be identified left-to-right horizontally, topdown vertically, and forward diagonally and includes duplicates, if any exists.
+        /// </summary>
+        /// <param name="board">The square two dimensional array to get all subsequences from.</param>
+        /// <returns>All subsequences found.</returns>
         public static IEnumerable<List<Square>> GetAllSubSequences(this Square[,] board)
         {
             var subEntriesFound = new List<List<Square>>();
@@ -89,6 +98,12 @@ namespace Game.Core.Board
             }
         }
 
+        /// <summary>
+        /// Get all entries in an list type <see cref="Square"/> as a string. Each square will contribute to the string construction with its <see cref="Tile.Letter"/> value.
+        /// </summary>
+        /// <param name="squares">List to get as a string.</param>
+        /// <returns>All entries the list as a string.</returns>
+        /// <exception cref="NullReferenceException">Thrown when a square in the list does not contain a <see cref="Tile.Letter"/> value.</exception>
         public static string GetEntriesAsString(this List<Square> squares)
         {
             var sb = new StringBuilder();
@@ -99,6 +114,11 @@ namespace Game.Core.Board
             return sb.ToString();
         }
 
+        /// <summary>
+        /// Make a deep copy of a two dimensional square array.
+        /// </summary>
+        /// <param name="arr">Array to copy.</param>
+        /// <returns>A deep copy of a two dimensional square array</returns>
         public static Square[,] DeepCopy(this Square[,] arr)
         {
             int numberOfRows = arr.GetLength(0);

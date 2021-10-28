@@ -8,7 +8,7 @@ namespace Game.Core.Board
         /// <summary>
         /// Translate numerical row and column values to a string value on form "[A-Z][0-9]" 
         /// where the first part "[A-Z]" and the second part "[0-9]" represents the row and 
-        /// column, respectively . The location is zero-based, i.e. row 0 corresponds to 
+        /// column, respectively. The location is zero-based, i.e. row 0 corresponds to 
         /// row "A".
         /// 
         /// <code>row=1 and column=5 returns "B5"</code>

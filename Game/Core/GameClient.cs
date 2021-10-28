@@ -7,17 +7,28 @@ using System.Net;
 
 namespace Game.Core
 {
+    /// <summary>
+    /// Let a user establish a connection to an already running game.
+    /// </summary>
     class GameClient
     {
         private readonly IInputOutput _inputOutput;
         private readonly NetworkClient _client;
 
+        /// <summary>
+        /// Initialize a new instance of the <see cref="GameClient"/> class.
+        /// </summary>
+        /// <param name="inputOutput">IO interface to use.</param>
+        /// <param name="endPoint">Endpoint to connect to.</param>
         public GameClient(IInputOutput inputOutput, IPEndPoint endPoint)
         {
             _inputOutput = inputOutput;
             _client = new NetworkClient(endPoint);
         }
 
+        /// <summary>
+        /// Open a connection and start listening for incoming messages.
+        /// </summary>
         public void Start()
         {
             try

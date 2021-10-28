@@ -4,6 +4,9 @@ using System.Linq;
 
 namespace Game.Core.IO
 {
+    /// <summary>
+    /// A console to use when there is a need for message transactions between two ends.
+    /// </summary>
     public class GameConsole : IInputOutput
     {
         public void DisplayMessage(IMessage message)

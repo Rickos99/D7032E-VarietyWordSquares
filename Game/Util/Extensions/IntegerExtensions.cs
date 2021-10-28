@@ -2,6 +2,9 @@
 
 namespace Game.Util.Extensions
 {
+    /// <summary>
+    /// Extension methods for integers
+    /// </summary>
     public static class IntegerExtensions
     {
         /// <summary>

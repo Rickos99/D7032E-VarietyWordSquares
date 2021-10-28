@@ -4,6 +4,9 @@ using System.Net.Sockets;
 
 namespace Game.Core.Players
 {
+    /// <summary>
+    /// A human player located in a network.
+    /// </summary>
     class NetworkPlayer : PlayerBase
     {
         private TcpClient _client;
@@ -12,7 +15,7 @@ namespace Game.Core.Players
         /// Initialize a new instance of the <see cref="NetworkPlayer"/> class
         /// </summary>
         /// <param name="client">
-        ///     TcpClient in which the communication with player will be performed
+        /// TcpClient in which the communication with player will be performed
         /// </param>
         public NetworkPlayer(TcpClient client)
         {

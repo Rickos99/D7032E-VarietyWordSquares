@@ -19,6 +19,10 @@ namespace Game.Core.Network
         /// Initializes a new instance of the <see cref="Client"/> class with 
         /// IP-address 127.0.0.1 and the specified port.
         /// </summary>
+        /// <remarks>
+        /// After initialization, plases call <see cref="OpenConnection"/> 
+        /// to actuall open a connection to the specified destination
+        /// </remarks>
         /// <param name="port">Port to connect to</param>
         public NetworkClient(int port) : this("127.0.0.1", port) { }
 
@@ -26,6 +30,10 @@ namespace Game.Core.Network
         /// Initializes a new instance of the <see cref="Client"/> class and with a 
         /// specified IP-address and port.
         /// </summary>
+        /// <remarks>
+        /// After initialization, plases call <see cref="OpenConnection"/> 
+        /// to actuall open a connection to the specified destination
+        /// </remarks>
         /// <param name="ipAddress">IP-address to connect to</param>
         /// <param name="port">Port to connect to</param>
         public NetworkClient(string ipAddress, int port) {
@@ -38,6 +46,10 @@ namespace Game.Core.Network
         /// Initializes a new instance of the <see cref="Client"/> class and with a 
         /// specified IP-address and port.
         /// </summary>
+        /// <remarks>
+        /// After initialization, plases call <see cref="OpenConnection"/> 
+        /// to actuall open a connection to the specified destination
+        /// </remarks>
         /// <param name="endPoint">Endpoint to connect to</param>
         public NetworkClient(IPEndPoint endPoint)
         {

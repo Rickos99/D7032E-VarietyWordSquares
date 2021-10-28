@@ -6,6 +6,9 @@ using System.Linq;
 
 namespace Game.Core.Resources
 {
+    /// <summary>
+    /// Load user defined board layouts.
+    /// </summary>
     public class SquareTypeSequenceLoader : IResourceLoader<SquareType[,]>
     {
         public SquareType[,] LoadFromFile(string filepath)

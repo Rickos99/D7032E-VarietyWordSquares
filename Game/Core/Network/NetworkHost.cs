@@ -12,6 +12,7 @@ namespace Game.Core.Network
     public class NetworkHost
     {
         public int Port { get; private set; }
+        
         public IPAddress IpAddress { get; private set; }
 
         private readonly IList<TcpClient> clients = null;
@@ -19,16 +20,15 @@ namespace Game.Core.Network
         private static readonly int _sizeOfNetworkBuffer = Settings.SizeOfNetworkBuffer;
 
         /// <summary>
-        ///  Initializes a new instance of the  <see cref="Host"/> class that listens for 
-        ///  incoming connection attempts on IP-address 127.0.0.1 and the specified port 
-        ///  number.
+        ///  Initializes a new instance of the  <see cref="Host"/> class with
+        ///  a specified IP-address 127.0.0.1 and a specified port.
         /// </summary>
         /// <param name="port">Port of the host</param>
         public NetworkHost(int port) : this("127.0.0.1", port) { }
 
         /// <summary>
-        ///  Initializes a new instance of the  <see cref="Host"/> class that listens for 
-        ///  incoming connection attempts on the specified local IP-address and port number.
+        ///  Initializes a new instance of the <see cref="Host"/> class with 
+        ///  a specified IP-address and port number.
         /// </summary>
         /// <param name="ipAddress">Local IP-address to allow connections to</param>
         /// <param name="port">Port of the host</param>
@@ -43,7 +43,7 @@ namespace Game.Core.Network
         }
 
         /// <summary>
-        /// Disconnect all clients
+        /// Disconnect all prevoius accepted clients.
         /// </summary>
         public void DisconnectAllClients()
         {
@@ -54,7 +54,7 @@ namespace Game.Core.Network
         }
 
         /// <summary>
-        /// Starts socket for listening of client requests
+        /// Starts socket for listening of client requests.
         /// </summary>
         /// <exception cref="SocketException"></exception>
         public void Start()
@@ -63,21 +63,12 @@ namespace Game.Core.Network
         }
 
         /// <summary>
-        /// Stops socket for listening of client requests
+        /// Stops socket for listening of client requests.
         /// </summary>
         /// <exception cref="SocketException"></exception>
         public void Stop()
         {
             tcpListener.Stop();
-        }
-
-        /// <summary>
-        /// Read an inoming message
-        /// </summary>
-        /// <returns>Recieved message</returns>
-        public IMessage ReadMessage()
-        {
-            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -96,9 +87,9 @@ namespace Game.Core.Network
         }
 
         /// <summary>
-        /// Send a message to all clients
+        /// Send a message to all clients.
         /// </summary>
-        /// <param name="message">The message to send</param>
+        /// <param name="message">The message to send.</param>
         public void SendMessageToAllClients(IMessage message)
         {
             foreach (var client in clients)
@@ -108,10 +99,10 @@ namespace Game.Core.Network
         }
 
         /// <summary>
-        /// Send a message to a specific client
+        /// Send a message to a specific client.
         /// </summary>
-        /// <param name="message">The message to send</param>
-        /// <param name="client">The client to send the message to</param>
+        /// <param name="message">The message to send.</param>
+        /// <param name="client">The client to send the message to.</param>
         public static void SendMessageToClient(IMessage message, TcpClient client)
         {
             var packet = new NetPacket<IMessage>(message);
@@ -121,18 +112,18 @@ namespace Game.Core.Network
         }
 
         /// <summary>
-        /// Wait for and accept any incoming connection
+        /// Wait for and accept any incoming connection and add to a collection
+        /// of connected clients.
         /// </summary>
         public TcpClient WaitForIncomingConnection()
         {
-            // TODO add to clients list
             var client = tcpListener.AcceptTcpClient();
             clients.Add(client);
             return client;
         }
 
         /// <summary>
-        /// Wait for and accept a number of new incoming connections
+        /// Wait for and accept a number of new incoming connections.
         /// </summary>
         /// <param name="numberOfConnections">Number of connections to accept</param>
         public void WaitForIncomingConnections(int numberOfConnections)

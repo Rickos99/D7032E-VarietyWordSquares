@@ -6,9 +6,9 @@ using System.Linq;
 
 namespace Game.Core.Players
 {
-    // LocalPlayer, use Console to ask question and send message. ctor()
-    // NetworkPlayer, use network interface to ask questions. ctor(TcpClient client)
-    // BotPlayer, don't print anything, only get input. Need support for game ended message. ctor() or ctor(Obj[] answers)
+    /// <summary>
+    /// Abstract class to represent a type of player.
+    /// </summary>
     public abstract class PlayerBase
     {
         /// <summary>

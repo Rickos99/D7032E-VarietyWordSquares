@@ -6,6 +6,9 @@ using System.IO;
 
 namespace Game.Core.Resources
 {
+    /// <summary>
+    /// Load a tileschema from a specified file.
+    /// </summary>
     public class TileSchemaLoader : IResourceLoader<TileSchema>
     {
         public TileSchema LoadFromFile(string filepath)

@@ -2,6 +2,9 @@
 
 namespace Game.Util.Extensions
 {
+    /// <summary>
+    /// Extension methods for strings
+    /// </summary>
     public static class StringExtensions
     {
         /// <summary>

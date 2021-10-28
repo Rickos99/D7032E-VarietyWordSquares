@@ -4,6 +4,9 @@ using System.IO;
 
 namespace Game.Core.Resources
 {
+    /// <summary>
+    /// Load dictionaries from filesystem.
+    /// </summary>
     public class DictionaryLoader : IResourceLoader<Dictionary>
     {
         /// <summary>

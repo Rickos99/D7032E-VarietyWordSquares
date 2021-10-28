@@ -5,7 +5,9 @@ using System.Text.Json;
 
 namespace Game.Core.Network
 {
-    // TODO add documentation
+    /// <summary>
+    /// Pack and unpack netpackets in which contains an <see cref="IMessage"/> object.
+    /// </summary>
     public static class NetPacketMessagePacker
     {
         public static NetPacket<IMessage> Pack(IMessage message)

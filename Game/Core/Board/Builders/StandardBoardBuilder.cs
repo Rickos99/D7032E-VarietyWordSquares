@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 namespace Game.Core.Board.Builders
 {
+    /// <summary>
+    /// A builder to build a <see cref="StandardBoard"/>.
+    /// </summary>
     public class StandardBoardBuilder : IBoardBuilder
     {
         private int _boardRows;

@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Game.Core.Language
 {
+    /// <summary>
+    /// Used to map a set of charactes e.g., an alphabet to a point value.
+    /// </summary>
     public class TileSchema
     {
         /// <summary>
