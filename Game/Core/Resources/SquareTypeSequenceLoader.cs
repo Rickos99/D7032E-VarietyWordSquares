@@ -10,6 +10,10 @@ namespace Game.Core.Resources
     {
         public SquareType[,] LoadFromFile(string filepath)
         {
+            if (!Path.IsPathRooted(filepath))
+            {
+                filepath = Path.Combine(Settings.AssemblyDirectory, filepath);
+            }
             string[] linesInFile = File.ReadAllLines(filepath);
             string firstLineInFile = linesInFile.FirstOrDefault() ?? throw new SquareSequenceFormatException("File is empty");
             var sequenceSize = GetSquareSequenceSize(firstLineInFile);

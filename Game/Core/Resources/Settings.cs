@@ -1,6 +1,7 @@
 ﻿using System.Configuration;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 
 namespace Game.Core.Resources
 {
@@ -83,8 +84,17 @@ namespace Game.Core.Resources
             return GetFileNamesInFolder(TileSchemaFolder);
         }
 
+        public static string AssemblyDirectory
+        {
+            get => Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        }
+
         private static string[] GetFileNamesInFolder(string directory)
         {
+            if (!Path.IsPathRooted(directory))
+            {
+                directory = Path.Combine(AssemblyDirectory, directory);
+            }
             return Directory.GetFiles(directory)
                 .Select((f) => Path.GetFileName(f))
                 .ToArray();

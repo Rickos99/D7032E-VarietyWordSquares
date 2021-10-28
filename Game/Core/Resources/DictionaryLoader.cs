@@ -14,6 +14,10 @@ namespace Game.Core.Resources
         /// <exception cref="FileLoadException"></exception>
         public Dictionary LoadFromFile(string filepath)
         {
+            if (!Path.IsPathRooted(filepath))
+            {
+                filepath = Path.Combine(Settings.AssemblyDirectory, filepath);
+            }
             string name = Path.GetFileNameWithoutExtension(filepath);
             IEnumerable<string> words;
             try
