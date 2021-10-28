@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Game.Core.Board
@@ -124,6 +125,27 @@ namespace Game.Core.Board
             }
 
             return arrCopy;
+        }
+
+        /// <summary>
+        /// Get a list of distinct squaretypes, from lowest to highest valued squaretype.
+        /// </summary>
+        /// <returns>A list of distinct squaretypes, from lowest to highest valued squaretype.</returns>
+        public static List<SquareType> GetAllDistinctSquareTypes(this Square[,] arr)
+        {
+            var squareTypeRepresentationOfArr = new List<SquareType>();
+
+            for (int row = 0; row < arr.GetLength(0); row++)
+            {
+                for (int col = 0; col < arr.GetLength(1); col++)
+                {
+                    squareTypeRepresentationOfArr.Add(arr[row, col].SquareType);
+                }
+            }
+
+            return squareTypeRepresentationOfArr.Distinct()
+                .OrderByDescending(squareType => (int)SquareType.TrippleWord)
+                .ToList();
         }
     }
 }

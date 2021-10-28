@@ -9,6 +9,7 @@ namespace Game.Core.Board
     {
         private readonly Square[,] _board;
         private readonly bool _displayPointsOnBoard;
+        private readonly List<SquareType> _squareTypesOnBoard;
 
         public int NumberOfRows => _board.GetLength(0);
 
@@ -24,6 +25,7 @@ namespace Game.Core.Board
         {
             _board = board.DeepCopy();
             _displayPointsOnBoard = displayPointsOnBoard;
+            _squareTypesOnBoard = _board.GetAllDistinctSquareTypes();
         }
 
         /// <summary>
@@ -169,6 +171,17 @@ namespace Game.Core.Board
                     sb.Append(BoardPainter.PaintSquare(tileString, square.SquareType));
                 }
                 sb.Append('\n');
+            }
+
+            // Print squaretypes
+            if (_squareTypesOnBoard.Count > 1)
+            {
+                sb.Append('\n');
+                foreach (var squareType in _squareTypesOnBoard)
+                {
+                    var squareDescription = $"\t {squareType.GetDescription()} ";
+                    sb.Append(BoardPainter.PaintSquare(squareDescription, squareType));
+                }
             }
 
             return sb.ToString();
