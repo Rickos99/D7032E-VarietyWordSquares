@@ -31,6 +31,12 @@ namespace Game.Core.Resources
             set => SetSetting("Player.Bots", value.ToString());
         }
 
+        public static bool AllowRemoteConnections
+        {
+            get => bool.Parse(GetSetting("Network.AllowRemoteConnection"));
+            set => SetSetting("Network.AllowRemoteConnection", value.ToString());
+        }
+
         public static string DictionaryFolder
         {
             get => GetSetting("Resources.DictionaryFolder");

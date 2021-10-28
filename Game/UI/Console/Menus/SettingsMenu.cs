@@ -44,6 +44,11 @@ namespace Game.UI.Console.Menus
                     () => $"Number of bots: {Settings.NumberOfBots}",
                     ChangeNumberOfBots
                     ),
+                new MenuChoice(
+                    "6",
+                    () => $"Allow outside connections: {(Settings.AllowRemoteConnections ? "Yes" : "No")}",
+                    ChangeAllowRemoteConnections
+                    ),
                 new ExitMenuChoice("Go back")
             };
             return new ConsoleMenu(header, menuChoices);
@@ -120,6 +125,19 @@ namespace Game.UI.Console.Menus
             }
 
             Settings.NumberOfBots = bots;
+        }
+
+        private static void ChangeAllowRemoteConnections()
+        {
+            string input = _console.AskQuestion(new ClosedQuestion(
+                    "Do you want to allow remote connections from outside of localhost?",
+                    new List<Choice>() {
+                        new Choice("y", "Yes"),
+                        new Choice("n", "No")
+                    }
+                ));
+            var allowRemoteConnections = input == "y" ? true : false;
+            Settings.AllowRemoteConnections = allowRemoteConnections;
         }
 
         private static void TellUser_InvalidInput()
