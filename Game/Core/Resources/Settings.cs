@@ -75,6 +75,11 @@ namespace Game.Core.Resources
             get => 4096;
         }
 
+        public static int DefaultNetworkGamePort
+        {
+            get => 5500;
+        }
+
         public static string[] GetAvaliableDictionaryFiles()
         {
             return GetFileNamesInFolder(DictionaryFolder);

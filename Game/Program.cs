@@ -1,6 +1,7 @@
 ﻿using Game.Core;
 using Game.Core.Communication;
 using Game.Core.IO;
+using Game.Core.Resources;
 using Game.UI.Console.Menus;
 using System.Collections.Generic;
 using System.Net;
@@ -48,7 +49,7 @@ namespace Game
         private static IPEndPoint AskForHostEndPoint(GameConsole console)
         {
             var defaultIp = IPAddress.Loopback;
-            var defaultPort = 5500;
+            var defaultPort = Settings.DefaultNetworkGamePort;
             var addressQuestion = new OpenQuestion($"Enter host address to connect to, including port number. [Default: {defaultIp}:{defaultPort}]");
 
             IPEndPoint endPoint = null;

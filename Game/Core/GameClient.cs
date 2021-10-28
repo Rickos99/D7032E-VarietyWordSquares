@@ -20,7 +20,15 @@ namespace Game.Core
 
         public void Start()
         {
-            _client.OpenConnection();
+            try
+            {
+                _client.OpenConnection();
+            }
+            catch
+            {
+                _inputOutput.DisplayMessage(new InformationMessage($"Unable to open a connection to {_client.IpAddress}:{_client.Port}"));
+                return;
+            }
             while (true)
             {
                 IMessage message;
@@ -33,11 +41,12 @@ namespace Game.Core
                     _inputOutput.DisplayMessage(new InformationMessage("Connection to host has been closed."));
                     break;
                 }
-                catch (Exception e){
+                catch (Exception e)
+                {
                     DisplayErrorMessage(e);
                     break;
                 }
-                
+
                 if (message is IQuestion question)
                 {
                     var answer = _inputOutput.AskQuestion(question);
