@@ -1,11 +1,11 @@
-﻿using Game.Core.Communication;
+﻿using Game.Core.IO.Messages;
 using Game.Core.Resources;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Text.Json;
 
-namespace Game.Core.Network
+namespace Game.Core.IO.Network
 {
     public class NetworkClient
     {
@@ -36,7 +36,8 @@ namespace Game.Core.Network
         /// </remarks>
         /// <param name="ipAddress">IP-address to connect to</param>
         /// <param name="port">Port to connect to</param>
-        public NetworkClient(string ipAddress, int port) {
+        public NetworkClient(string ipAddress, int port)
+        {
             IpAddress = IPAddress.Parse(ipAddress);
             Port = port;
             tcpClient = new TcpClient();

@@ -1,5 +1,5 @@
-﻿using Game.Core.Communication;
-using Game.Core.IO;
+﻿using Game.Core.IO;
+using Game.Core.IO.Messages;
 using Game.Core.Resources;
 using System;
 using System.Collections.Generic;

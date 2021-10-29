@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Game.Core.Communication
+﻿namespace Game.Core.IO.Messages
 {
     public interface IMessage
     {

@@ -1,4 +1,4 @@
-﻿using Game.Core.Communication;
+﻿using Game.Core.IO.Messages;
 using System;
 
 namespace Game.Core.IO

@@ -1,4 +1,4 @@
-﻿using Game.Core.Communication;
+﻿using Game.Core.IO.Messages;
 using Game.Core.Resources;
 using System;
 using System.Collections.Generic;
@@ -7,12 +7,12 @@ using System.Net.Sockets;
 using System.Text;
 using System.Text.Json;
 
-namespace Game.Core.Network
+namespace Game.Core.IO.Network
 {
     public class NetworkHost
     {
         public int Port { get; private set; }
-        
+
         public IPAddress IpAddress { get; private set; }
 
         private readonly IList<TcpClient> clients = null;

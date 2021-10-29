@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace Game.Core.Communication
+namespace Game.Core.IO.Messages
 {
     /// <summary>
     /// A question which prompts a player to pick the location for a tile.

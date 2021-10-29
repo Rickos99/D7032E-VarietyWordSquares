@@ -1,5 +1,5 @@
-﻿using System;
-using Game.Util.Extensions;
+﻿using Game.Util.Extensions;
+using System;
 
 namespace Game.Core.Board
 {

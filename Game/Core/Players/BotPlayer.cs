@@ -1,5 +1,5 @@
 ﻿using Game.Core.Board;
-using Game.Core.Communication;
+using Game.Core.IO.Messages;
 using Game.Core.Language;
 using System;
 using System.Linq;

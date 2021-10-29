@@ -1,7 +1,7 @@
 ﻿using Game.Core.Exceptions;
 using System.IO;
 
-namespace Game.Core.Network
+namespace Game.Core.IO.Network
 {
     public class NetStreamHelper
     {

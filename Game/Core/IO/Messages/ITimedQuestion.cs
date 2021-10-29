@@ -1,4 +1,4 @@
-﻿namespace Game.Core.Communication
+﻿namespace Game.Core.IO.Messages
 {
     interface ITimedQuestion : IQuestion
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Game.Core.Communication
+namespace Game.Core.IO.Messages
 {
     public class ClosedQuestion : IQuestion
     {
@@ -48,7 +48,7 @@ namespace Game.Core.Communication
             }
 
             // Remove new line after last choice
-            sb.Remove(sb.Length - 1, 1); 
+            sb.Remove(sb.Length - 1, 1);
 
             return sb.ToString();
         }

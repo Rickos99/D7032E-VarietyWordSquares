@@ -3,7 +3,6 @@ using Game.Core.Board;
 using Game.Core.Language;
 using Game.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -38,7 +37,7 @@ namespace Game.Core.Resources.Tests
             {
                 return new[]
                 {
-                    new object[]{ new List<Square>() { 
+                    new object[]{ new List<Square>() {
                         new(default, new('l', 1)),
                         new(default, new('o', 1)),
                         new(default, new('r', 1)),

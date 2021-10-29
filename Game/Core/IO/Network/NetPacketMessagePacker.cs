@@ -1,9 +1,9 @@
-﻿using Game.Core.Communication;
-using Game.Core.Exceptions;
+﻿using Game.Core.Exceptions;
+using Game.Core.IO.Messages;
 using System;
 using System.Text.Json;
 
-namespace Game.Core.Network
+namespace Game.Core.IO.Network
 {
     /// <summary>
     /// Pack and unpack netpackets in which contains an <see cref="IMessage"/> object.

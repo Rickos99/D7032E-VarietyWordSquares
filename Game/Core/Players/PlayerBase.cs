@@ -1,5 +1,5 @@
 ﻿using Game.Core.Board;
-using Game.Core.Communication;
+using Game.Core.IO.Messages;
 using Game.Core.Language;
 using System;
 using System.Linq;
@@ -20,7 +20,7 @@ namespace Game.Core.Players
         /// Initialize a new instance of the <see cref="PlayerBase"/> class
         /// </summary>
         public PlayerBase()
-        {    
+        {
             ID = Guid.NewGuid();
         }
 

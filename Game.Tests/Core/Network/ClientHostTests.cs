@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
-using Game.Core.Communication;
+using Game.Core.IO.Messages;
+using Game.Core.IO.Network;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Net.Sockets;

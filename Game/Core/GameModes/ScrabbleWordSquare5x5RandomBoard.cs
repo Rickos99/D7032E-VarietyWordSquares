@@ -2,8 +2,8 @@
 using Game.Core.Board.Builders;
 using Game.Core.GameModes.Rules;
 using Game.Core.IO;
+using Game.Core.IO.Network;
 using Game.Core.Language;
-using Game.Core.Network;
 using System;
 
 namespace Game.Core.GameModes

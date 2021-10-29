@@ -48,7 +48,7 @@ namespace Game.Core.Resources
 
         private (int rows, int columns) GetSquareSequenceSize(string str)
         {
-            var parts = str.Split(new char[]{ 'x', 'X' }, 2);
+            var parts = str.Split(new char[] { 'x', 'X' }, 2);
 
             if (!int.TryParse(parts[0], out int rows) ||
                !int.TryParse(parts[1], out int columns))

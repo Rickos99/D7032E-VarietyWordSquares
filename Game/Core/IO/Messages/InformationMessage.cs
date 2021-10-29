@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Game.Core.Communication
+namespace Game.Core.IO.Messages
 {
     /// <summary>
     /// Simple text message

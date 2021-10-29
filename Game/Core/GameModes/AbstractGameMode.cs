@@ -1,8 +1,8 @@
 ﻿using Game.Core.Board;
-using Game.Core.Communication;
 using Game.Core.IO;
+using Game.Core.IO.Messages;
+using Game.Core.IO.Network;
 using Game.Core.Language;
-using Game.Core.Network;
 using Game.Core.Players;
 using System;
 using System.Collections.Generic;

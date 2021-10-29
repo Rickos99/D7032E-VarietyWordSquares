@@ -1,5 +1,5 @@
-﻿using Game.Core.Communication;
-using Game.Core.Network;
+﻿using Game.Core.IO.Messages;
+using Game.Core.IO.Network;
 using System.Net.Sockets;
 
 namespace Game.Core.Players

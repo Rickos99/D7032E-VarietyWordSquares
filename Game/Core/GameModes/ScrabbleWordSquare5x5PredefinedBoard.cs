@@ -2,14 +2,14 @@
 using Game.Core.Board.Builders;
 using Game.Core.GameModes.Rules;
 using Game.Core.IO;
+using Game.Core.IO.Network;
 using Game.Core.Language;
-using Game.Core.Network;
 
 namespace Game.Core.GameModes
 {
     sealed class ScrabbleWordSquare5x5PredefinedBoard : AbstractStandardWordSquare
     {
-        private readonly SquareType[,] _predefinedLayout = new SquareType[5,5]
+        private readonly SquareType[,] _predefinedLayout = new SquareType[5, 5]
         {
             { SquareType.DoubleWord, SquareType.Regular, SquareType.TrippleWord, SquareType.Regular, SquareType.DoubleWord },
             { SquareType.Regular, SquareType.DoubleLetter, SquareType.Regular, SquareType.DoubleLetter, SquareType.Regular },

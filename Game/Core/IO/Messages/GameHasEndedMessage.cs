@@ -1,4 +1,4 @@
-﻿namespace Game.Core.Communication
+﻿namespace Game.Core.IO.Messages
 {
     /// <summary>
     /// A message used when a game has ended and to tell a network client to disconnect.

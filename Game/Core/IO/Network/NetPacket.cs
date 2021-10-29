@@ -2,7 +2,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Game.Core.Network
+namespace Game.Core.IO.Network
 {
     /// <summary>
     /// Package an item to be send over a network connection while still preserving an objects data and type. Does support inheritence.

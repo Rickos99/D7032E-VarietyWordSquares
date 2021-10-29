@@ -23,7 +23,7 @@ namespace Game.Core.Board.DataStructures
                     break;
 
                 currentNode = currentNode.FindChildNode(square.Tile.Letter);
-                
+
                 if (currentNode == null)
                     break;
                 result = currentNode;

@@ -1,13 +1,9 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Game.Core.Board;
+﻿using FluentAssertions;
+using Game.Core.Language;
 using Game.Tests.Core.Board.Boards;
-using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FluentAssertions;
-using Game.Core.Language;
 
 namespace Game.Core.Board.Tests
 {

@@ -1,7 +1,7 @@
-﻿using Game.Core.Communication;
-using Game.Core.Exceptions;
+﻿using Game.Core.Exceptions;
 using Game.Core.IO;
-using Game.Core.Network;
+using Game.Core.IO.Messages;
+using Game.Core.IO.Network;
 using System;
 using System.Net;
 

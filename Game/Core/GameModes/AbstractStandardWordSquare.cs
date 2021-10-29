@@ -1,8 +1,8 @@
 ﻿using Game.Core.Board;
 using Game.Core.GameModes.Rules;
 using Game.Core.IO;
+using Game.Core.IO.Network;
 using Game.Core.Language;
-using Game.Core.Network;
 using Game.Core.Players;
 using System.Collections.Generic;
 using System.Linq;

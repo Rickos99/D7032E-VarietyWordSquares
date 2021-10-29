@@ -1,7 +1,7 @@
 ﻿using Game.Core.GameModes;
 using Game.Core.IO;
+using Game.Core.IO.Network;
 using Game.Core.Language;
-using Game.Core.Network;
 using Game.Core.Resources;
 using System;
 using System.Collections.Generic;

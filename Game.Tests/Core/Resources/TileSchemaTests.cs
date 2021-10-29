@@ -1,7 +1,5 @@
 ﻿using FluentAssertions;
 using Game.Core.Board;
-using Game.Core.Language;
-using Game.Core.Resources;
 using Game.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;

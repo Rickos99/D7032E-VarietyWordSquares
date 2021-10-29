@@ -1,7 +1,8 @@
 ﻿using FluentAssertions;
 using Game.Core.Board;
-using Game.Core.Communication;
 using Game.Core.Exceptions;
+using Game.Core.IO.Messages;
+using Game.Core.IO.Network;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 

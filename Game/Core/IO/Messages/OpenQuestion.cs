@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Game.Core.Communication
+namespace Game.Core.IO.Messages
 {
     public class OpenQuestion : IQuestion
     {
