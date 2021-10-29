@@ -11,7 +11,7 @@ namespace Game.UI.Console.Menus
 {
     class SettingsMenu
     {
-        private readonly static GameConsole _console = new GameConsole();
+        private readonly static GameConsoleIO _console = new GameConsoleIO();
 
         public static ConsoleMenu Create()
         {
@@ -142,7 +142,7 @@ namespace Game.UI.Console.Menus
 
         private static void TellUser_InvalidInput()
         {
-            _console.DisplayMessage(new InformationMessage("Invalid input"));
+            _console.SendMessage(new InformationMessage("Invalid input"));
         }
 
         private static List<Choice> CreateChoices(string[] strs)

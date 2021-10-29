@@ -17,7 +17,7 @@ namespace Game
 
         private static void StartNewConsoleGame()
         {
-            var console = new GameConsole();
+            var console = new GameConsoleIO();
             var HostOrClientQuestion = new ClosedQuestion("Start as host or client? [default: host]", new List<Choice>()
             {
                 new Choice("H", "Host a game"),
@@ -35,7 +35,7 @@ namespace Game
             }
         }
 
-        private static void StartAsConsoleClient(GameConsole console)
+        private static void StartAsConsoleClient(GameConsoleIO console)
         {
             var endPoint = AskForHostEndPoint(console);
             new GameClient(console, endPoint).Start();
@@ -46,14 +46,14 @@ namespace Game
             MainMenu.Create().Show();
         }
 
-        private static IPEndPoint AskForHostEndPoint(GameConsole console)
+        private static IPEndPoint AskForHostEndPoint(GameConsoleIO console)
         {
             var defaultIp = IPAddress.Loopback;
             var defaultPort = Settings.DefaultNetworkGamePort;
             var addressQuestion = new OpenQuestion($"Enter host address to connect to, including port number. [Default: {defaultIp}:{defaultPort}]");
 
             IPEndPoint endPoint = null;
-            console.DisplayMessage(addressQuestion);
+            console.SendMessage(addressQuestion);
             console.GetInput((answer) =>
                 IPEndPoint.TryParse(answer, out endPoint) || string.IsNullOrEmpty(answer)
             );

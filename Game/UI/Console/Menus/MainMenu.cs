@@ -31,7 +31,7 @@ namespace Game.UI.Console.Menus
 
         private static void PlayStandardWordSquares()
         {
-            var gameConsole = new GameConsole();
+            var gameConsole = new GameConsoleIO();
             var dictionary = LoadDictionary();
             var tileSchema = LoadTileSchema();
             var networkHost = CreateNetworkHost();
@@ -51,7 +51,7 @@ namespace Game.UI.Console.Menus
 
         private static void PlayScrabbleSquares()
         {
-            var gameConsole = new GameConsole();
+            var gameConsole = new GameConsoleIO();
             var dictionary = LoadDictionary();
             var tileSchema = LoadTileSchema();
             var networkHost = CreateNetworkHost();
@@ -71,7 +71,7 @@ namespace Game.UI.Console.Menus
 
         private static void PlayScrabbleSquares_5x5_PredefinedBoard()
         {
-            var gameConsole = new GameConsole();
+            var gameConsole = new GameConsoleIO();
             var dictionary = LoadDictionary();
             var tileSchema = LoadTileSchema();
             var networkHost = CreateNetworkHost();
@@ -89,7 +89,7 @@ namespace Game.UI.Console.Menus
 
         private static void PlayScrabbleSquares_5x5_RandomBoard()
         {
-            var gameConsole = new GameConsole();
+            var gameConsole = new GameConsoleIO();
             var dictionary = LoadDictionary();
             var tileSchema = LoadTileSchema();
             var networkHost = CreateNetworkHost();

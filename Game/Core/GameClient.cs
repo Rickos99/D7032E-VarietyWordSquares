@@ -12,7 +12,7 @@ namespace Game.Core
     /// </summary>
     class GameClient
     {
-        private readonly IInputOutput _inputOutput;
+        private readonly IMessageIO _inputOutput;
         private readonly NetworkClient _client;
 
         /// <summary>
@@ -20,7 +20,7 @@ namespace Game.Core
         /// </summary>
         /// <param name="inputOutput">IO interface to use.</param>
         /// <param name="endPoint">Endpoint to connect to.</param>
-        public GameClient(IInputOutput inputOutput, IPEndPoint endPoint)
+        public GameClient(IMessageIO inputOutput, IPEndPoint endPoint)
         {
             _inputOutput = inputOutput;
             _client = new NetworkClient(endPoint);
@@ -37,7 +37,7 @@ namespace Game.Core
             }
             catch
             {
-                _inputOutput.DisplayMessage(new InformationMessage($"Unable to open a connection to {_client.IpAddress}:{_client.Port}"));
+                _inputOutput.SendMessage(new InformationMessage($"Unable to open a connection to {_client.IpAddress}:{_client.Port}"));
                 return;
             }
             while (true)
@@ -49,7 +49,7 @@ namespace Game.Core
                 }
                 catch (ConnectionClosedException)
                 {
-                    _inputOutput.DisplayMessage(new InformationMessage("Connection to host has been closed."));
+                    _inputOutput.SendMessage(new InformationMessage("Connection to host has been closed."));
                     break;
                 }
                 catch (Exception e)
@@ -73,19 +73,19 @@ namespace Game.Core
                 }
                 else if (message is GameHasEndedMessage m)
                 {
-                    _inputOutput.DisplayMessage(m);
+                    _inputOutput.SendMessage(m);
                     break;
                 }
                 else
                 {
-                    _inputOutput.DisplayMessage(message);
+                    _inputOutput.SendMessage(message);
                 }
             }
         }
 
         private void DisplayErrorMessage(Exception e)
         {
-            _inputOutput.DisplayMessage(new InformationMessage($"An unexpected error occured.\n\t- {e.Message}"));
+            _inputOutput.SendMessage(new InformationMessage($"An unexpected error occured.\n\t- {e.Message}"));
         }
     }
 }

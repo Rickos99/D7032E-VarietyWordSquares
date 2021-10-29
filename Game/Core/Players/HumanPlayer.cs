@@ -6,11 +6,11 @@ namespace Game.Core.Players
     /// <summary>
     /// A human player located on the local machine.
     /// </summary>
-    public class LocalPlayer : PlayerBase
+    public class HumanPlayer : PlayerBase
     {
-        private readonly IInputOutput _inputOutput;
+        private readonly IMessageIO _inputOutput;
 
-        public LocalPlayer(IInputOutput inputOutput)
+        public HumanPlayer(IMessageIO inputOutput)
         {
             _inputOutput = inputOutput;
         }
@@ -22,7 +22,7 @@ namespace Game.Core.Players
 
         public override void SendMessage(IMessage message)
         {
-            _inputOutput.DisplayMessage(message);
+            _inputOutput.SendMessage(message);
         }
     }
 }

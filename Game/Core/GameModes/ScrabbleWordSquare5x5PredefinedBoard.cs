@@ -19,7 +19,7 @@ namespace Game.Core.GameModes
         };
 
         public ScrabbleWordSquare5x5PredefinedBoard(
-            IInputOutput io,
+            IMessageIO io,
             Dictionary dictionary,
             TileSchema tileSchema,
             NetworkHost networkHost,

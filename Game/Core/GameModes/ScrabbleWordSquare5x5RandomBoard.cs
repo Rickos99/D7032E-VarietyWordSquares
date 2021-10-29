@@ -33,7 +33,7 @@ namespace Game.Core.GameModes
         private readonly int _boardSeed;
 
         public ScrabbleWordSquare5x5RandomBoard(
-            IInputOutput io,
+            IMessageIO io,
             Dictionary dictionary,
             TileSchema tileSchema,
             NetworkHost networkHost,

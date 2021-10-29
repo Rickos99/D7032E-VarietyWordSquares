@@ -12,11 +12,11 @@ namespace Game.Core.GameModes
 {
     abstract class AbstractStandardWordSquare : AbstractGameMode
     {
-        private readonly IInputOutput _io;
+        private readonly IMessageIO _io;
         private readonly IGameRules _gameRules;
 
         public AbstractStandardWordSquare(
-            IInputOutput io,
+            IMessageIO io,
             TileSchema tileSchema,
             NetworkHost networkHost,
             IGameRules gameRules,

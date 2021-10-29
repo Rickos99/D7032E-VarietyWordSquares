@@ -7,23 +7,23 @@ namespace Game.Core.IO
     /// <summary>
     /// A console to use when there is a need for message transactions between two ends.
     /// </summary>
-    public class GameConsole : IInputOutput
+    public class GameConsoleIO : IMessageIO
     {
-        public void DisplayMessage(IMessage message)
+        public void SendMessage(IMessage message)
         {
             Console.WriteLine(message.GetMessageString());
         }
 
         public string AskQuestion(IQuestion question)
         {
-            DisplayMessage(question);
+            SendMessage(question);
             if (question is ITimedQuestion q)
             {
                 return TimedConsoleReader.ReadLine(q.SecondsTimeout * 1000);
             }
             if (question.HasChoices == false)
             {
-                return GetInput();
+                return GetInput(s => true);
             }
 
             return GetInput((input) => question.Choices.Any((c) => InputIsInChoices(c, input)));
@@ -44,11 +44,6 @@ namespace Game.Core.IO
             }
 
             return input;
-        }
-
-        public string GetInput()
-        {
-            return GetInput(s => true);
         }
 
         private static bool InputIsInChoices(Choice choice, string input)

@@ -13,7 +13,7 @@ namespace Game.Core.GameModes
         private readonly int _numberOfBoardRows;
 
         public ScrabbleWordSquare(
-            IInputOutput io,
+            IMessageIO io,
             Dictionary dictionary,
             TileSchema tileSchema,
             NetworkHost networkHost,

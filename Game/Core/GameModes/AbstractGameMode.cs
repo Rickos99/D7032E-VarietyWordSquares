@@ -105,9 +105,9 @@ namespace Game.Core.GameModes
         /// The local player will be using the board specified in <see cref="BuildBoard()"/>.
         /// </remarks>
         /// <param name="io">Input-Output interface to create the local player with.</param>
-        protected void CreateLocalPlayer(IInputOutput io)
+        protected void CreateLocalPlayer(IMessageIO io)
         {
-            var player = new LocalPlayer(io);
+            var player = new HumanPlayer(io);
             var board = BuildBoard();
             _playerAndBoardCollection.Add(player, board);
         }
@@ -147,10 +147,11 @@ namespace Game.Core.GameModes
         /// Synchronously wait for the next network player to connect.
         /// </summary>
         /// <returns>The connected player</returns>
-        protected virtual NetworkPlayer WaitForNetworkPlayer()
+        protected virtual HumanPlayer WaitForNetworkPlayer()
         {
             var netClient = _netHost.WaitForIncomingConnection();
-            return new NetworkPlayer(netClient);
+            var messageIO = new GameNetworkIO(netClient);
+            return new HumanPlayer(messageIO);
         }
 
         /// <summary>
@@ -301,13 +302,13 @@ namespace Game.Core.GameModes
         }
 
         /// <summary>
-        /// Send a <see cref="GameHasEndedMessage"/> to all players, except the any <see cref="LocalPlayer"/>.
+        /// Send a <see cref="GameHasEndedMessage"/> to all players, except the any <see cref="HumanPlayer"/>.
         /// </summary>
         protected void TellAllPlayersGameHasEnded()
         {
             foreach (var player in _playerAndBoardCollection.Players)
             {
-                if (player is LocalPlayer) continue;
+                if (player is HumanPlayer) continue;
 
                 player.SendMessage(new GameHasEndedMessage());
             }
