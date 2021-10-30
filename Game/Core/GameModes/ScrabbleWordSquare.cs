@@ -24,8 +24,8 @@ namespace Game.Core.GameModes
             int? randomizationSeed = null)
             : base(io, tileSchema, networkHost, new ScrabbleWordSquareRules(dictionary), bots, players, true, randomizationSeed)
         {
-            _numberOfBoardColumns = rows;
-            _numberOfBoardRows = columns;
+            _numberOfBoardColumns = columns;
+            _numberOfBoardRows = rows;
         }
 
         protected override StandardBoard BuildBoard()

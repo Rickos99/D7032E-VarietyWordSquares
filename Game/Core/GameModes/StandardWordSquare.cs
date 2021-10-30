@@ -24,8 +24,8 @@ namespace Game.Core.GameModes
             int? randomizationSeed = null)
             : base(io, tileSchema, networkHost, new StandardWordSquareRules(dictionary), bots, players, false, randomizationSeed)
         {
-            _numberOfBoardColumns = rows;
-            _numberOfBoardRows = columns;
+            _numberOfBoardColumns = columns;
+            _numberOfBoardRows = rows;
         }
 
         protected override StandardBoard BuildBoard()
