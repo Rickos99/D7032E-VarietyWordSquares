@@ -1,19 +1,23 @@
-# D7032E-VarietyWordSquares
-Home exam for course D7032E Software engineering. Tasked with refactoring source code for a Word Square game
+# Variety Word Squares
+![Build](https://github.com/Rickos99/D7032E-VarietyWordSquares/actions/workflows/dotnet.yml/badge.svg)
 
-# Building
-1. Install the X64 version of [.NET 5.0 (or higher) SDK](https://dotnet.microsoft.com/download/dotnet).
+Home exam for course D7032E Software engineering. Tasked with refactoring source code for a Word Square game.
+
+## Building
+1. Install the X64 version of [.NET 5.0 SDK](https://dotnet.microsoft.com/download/dotnet) (or higher).
 2. Run `dotnet build`.
 
-# Testing
+The `/Resources` directory contains the default user defined files. After a successful build, its content will be copied to the project directory, in which the user will be able to modify and add files to use ingame.
+
+## Testing
 1. Perform the steps in section [Building](#building).
 2. Run `dotnet test --no-build` or `dotnet test --no-build --verbosity normal`. 
 
-# Usage
+## Usage
 1. Navigate to `Game/` folder.
 2. Use `dotnet run` to run the project.
 
-# Rules and requirements:
+## Rules and requirements:
 1. Game participants consists of at least one player and any number of bots.
 2. The game-board is a grid with at least one row and at least one column.
 3. Random participant starts picking the letter to place on the board, then participants take turns picking.
