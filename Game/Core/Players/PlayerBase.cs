@@ -1,6 +1,8 @@
 ﻿using Game.Core.Board;
 using Game.Core.IO.Messages;
 using Game.Core.Language;
+using Game.Util.Extensions;
+using RandomNameGeneratorLibrary;
 using System;
 using System.Linq;
 
@@ -17,11 +19,19 @@ namespace Game.Core.Players
         public Guid ID { get; private set; }
 
         /// <summary>
+        /// Name of player
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
         /// Initialize a new instance of the <see cref="PlayerBase"/> class
         /// </summary>
         public PlayerBase()
         {
+            var nameGenerator = new PersonNameGenerator();
+
             ID = Guid.NewGuid();
+            Name = nameGenerator.GenerateRandomFirstName();
         }
 
         public override bool Equals(object obj)

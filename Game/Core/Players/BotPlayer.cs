@@ -35,6 +35,8 @@ namespace Game.Core.Players
 
             _rng = new Random(rngSeed);
             _board = board;
+
+            Name += " (bot)";
         }
 
         public override string AskQuestion(IQuestion question)

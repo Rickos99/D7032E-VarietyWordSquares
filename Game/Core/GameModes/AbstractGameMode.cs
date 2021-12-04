@@ -137,8 +137,13 @@ namespace Game.Core.GameModes
             {
                 var board = BuildBoard();
                 var netPlayer = WaitForNetworkPlayer();
-                netPlayer.SendMessage(new InformationMessage($"You connected to the server as player {netPlayer.ID}"));
-                _playerAndBoardCollection.Players.FirstOrDefault()?.SendMessage(new InformationMessage($"Player {netPlayer.ID} connected."));
+                netPlayer.SendMessage(new InformationMessage($"You connected to the server as {netPlayer.Name}"));
+
+                foreach (var player in _playerAndBoardCollection.Players)
+                {
+                    player.SendMessage(new InformationMessage($"Player {netPlayer.Name} connected."));
+                }
+
                 _playerAndBoardCollection.Add(netPlayer, board);
             }
         }
@@ -278,11 +283,20 @@ namespace Game.Core.GameModes
         protected virtual string GenerateLeaderboard(List<KeyValuePair<PlayerBase, int>> scores)
         {
             var winners = scores.OrderByDescending((s) => s.Value).ToArray();
+            var lengthOfLongestWinnerName = winners.Max(kvp => kvp.Key.Name.Length);
             var leaderboard = new StringBuilder();
-            leaderboard.AppendLine("  Leaderboard  ");
+            leaderboard.AppendLine("Leaderboard  ");
+
             for (int i = 0; i < winners.Length; i++)
             {
-                leaderboard.AppendLine($"{i + 1}. {winners[i].Key.ID} ({winners[i].Value} points)");
+                var namePadding = (int)Math.Floor(Math.Log10(winners.Length)) - (int)Math.Floor(Math.Log10(i + 1));
+                var pointPadding = lengthOfLongestWinnerName - winners[i].Key.Name.Length + 2;
+
+                leaderboard.Append($" {i + 1}. ");
+                leaderboard.Append(' ', namePadding);
+                leaderboard.Append(winners[i].Key.Name);
+                leaderboard.Append(' ', pointPadding);
+                leaderboard.AppendLine($"{winners[i].Value} points");
             }
 
             return leaderboard.ToString();

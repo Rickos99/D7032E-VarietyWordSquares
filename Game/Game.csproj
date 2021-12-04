@@ -9,6 +9,7 @@
 
     <ItemGroup>
         <PackageReference Include="Pastel" Version="2.1.0" />
+        <PackageReference Include="RandomNameGeneratorLibrary" Version="1.2.2" />
         <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
     </ItemGroup>
 
