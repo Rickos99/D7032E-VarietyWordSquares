@@ -42,5 +42,19 @@ namespace Game.Util.Extensions
                 return false;
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="str">String to truncate</param>
+        /// <param name="desiredLength">The desired length of final string, excluding suffix</param>
+        /// <param name="truncateSuffix">Suffix to append to string if length is greater than the desired length</param>
+        /// <returns></returns>
+        public static string Truncate(this string str, int desiredLength, string truncateSuffix)
+        {
+            return str?.Length > desiredLength
+                ? str[..desiredLength] + truncateSuffix
+                : str;
+        }
     }
 }
