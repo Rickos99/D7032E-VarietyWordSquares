@@ -43,9 +43,9 @@ namespace Game.Core.GameModes
             DisplayBoardForAllPlayers();
             while (!_gameRules.BoardHasReachedGameOver(_playerAndBoardCollection.Boards.First()))
             {
-                var randomPlayer = PickRandomPlayer();
-                SendLetterBeingPickedMessageToAllPlayers(randomPlayer);
-                var tile = LetPlayerPickTile(randomPlayer);
+                var nextPlayerToPickTile = _playerAndBoardCollection.GetNextPlayer();
+                SendLetterBeingPickedMessageToAllPlayers(nextPlayerToPickTile);
+                var tile = LetPlayerPickTile(nextPlayerToPickTile);
                 LetAllPlayersPlaceTileOnBoard(tile);
             }
             var scores = CalculateScoreForAllPlayers();

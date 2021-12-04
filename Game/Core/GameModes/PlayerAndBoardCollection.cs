@@ -9,7 +9,7 @@ namespace Game.Core.GameModes
     /// <summary>
     /// A collection of players and their boards, the boards can be unique for each player or shared as one instance.
     /// </summary>
-    class PlayerAndBoardCollection
+    public class PlayerAndBoardCollection
     {
         /// <summary>
         /// Initialize a new instance of the <see cref="PlayerAndBoardCollection"/>
@@ -30,6 +30,11 @@ namespace Game.Core.GameModes
         }
 
         private readonly Dictionary<PlayerBase, StandardBoard> _collection;
+
+        /// <summary>
+        /// Index of last player that was returned by <see cref="GetNextPlayer"/>. If no player has been previously returned, the value will be -1.
+        /// </summary>
+        private int _lastPlayerIndex = -1;
 
         /// <summary>
         /// Gets or sets the value for the specified player
@@ -81,6 +86,20 @@ namespace Game.Core.GameModes
         public void Add(PlayerBase player, StandardBoard board)
         {
             _collection.Add(player, board);
+        }
+
+        /// <summary>
+        /// Get the next player from <see cref="Players"/>. On first call, a random player will be returned.
+        /// </summary>
+        /// <returns>A player</returns>
+        public PlayerBase GetNextPlayer()
+        {
+            int nextPlayerIndex = _lastPlayerIndex == -1
+                ? new Random().Next(0, Players.Count)
+                : ++_lastPlayerIndex % (Players.Count);
+
+            _lastPlayerIndex = nextPlayerIndex;
+            return Players[nextPlayerIndex];
         }
     }
 }

@@ -183,17 +183,6 @@ namespace Game.Core.GameModes
         }
 
         /// <summary>
-        /// Pick a random player from <see cref="_playerAndBoardCollection"/>.
-        /// </summary>
-        /// <returns>A player</returns>
-        protected virtual PlayerBase PickRandomPlayer()
-        {
-            var playerIndex = _rng.Next(0, _playerAndBoardCollection.Count);
-            var players = _playerAndBoardCollection.Players;
-            return players[playerIndex];
-        }
-
-        /// <summary>
         /// Send an <see cref="InformationMessage"/> with content "Waiting for a 
         /// letter to be picked..." to all players. One player will not recieve 
         /// the message and an idea can be to let that user be the player 
